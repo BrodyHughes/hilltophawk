@@ -1,0 +1,74 @@
+.top {
+  padding-top: 8px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr);
+  gap: 32px;
+}
+
+.latestGrid { display: grid; gap: 20px; }
+
+.rail { display: flex; flex-direction: column; gap: 10px; }
+
+/* Radio row */
+.episode {
+  flex: none;
+  width: 280px;
+  background: var(--ink);
+  border-radius: 8px;
+  border: 1px solid transparent;
+  overflow: hidden;
+  color: var(--paper);
+  transition: transform .25s ease, border-color .25s ease;
+}
+.episode:hover { transform: translateY(-4px); border-color: var(--gold); }
+
+.episodeImage { position: relative; aspect-ratio: 16 / 9; overflow: hidden; }
+.episodeImage img { object-fit: cover; }
+
+.episodeControls { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+
+.playCircle {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.playTriangle {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 13px solid var(--ink);
+  margin-left: 3px;
+}
+
+.waveform { display: flex; align-items: flex-end; gap: 3px; height: 26px; }
+.waveform > div { width: 3px; background: rgba(245, 245, 245, .4); border-radius: 2px; }
+
+.episodeTitle {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 15.5px;
+  line-height: 1.25;
+  margin: 0 0 8px;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+  transition: text-decoration-color .2s ease;
+}
+.episode:hover .episodeTitle { text-decoration-color: var(--gold); }
+
+.episodeLength {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(245, 245, 245, .5);
+}
+
+@media (max-width: 860px) {
+  .top { grid-template-columns: 1fr; }
+  .latestGrid { grid-template-columns: 1fr !important; }
+}

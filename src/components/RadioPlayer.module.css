@@ -1,0 +1,182 @@
+.top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+/* Now playing */
+.nowPlaying {
+  position: relative;
+  background: var(--ink);
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  overflow: hidden;
+}
+.nowPlaying > *:not(.nowPlayingBg):not(.nowPlayingShade) { position: relative; z-index: 1; }
+
+.nowPlayingBg {
+  object-fit: cover;
+  filter: blur(22px) saturate(1.3);
+  transform: scale(1.15);
+  opacity: .9;
+}
+.nowPlayingShade { position: absolute; inset: 0; background: rgba(20, 20, 19, .4); }
+
+.nowPlayingLabel {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: .14em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+.nowPlayingTitle {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(17px, 2.2vw, 24px);
+  line-height: 1.15;
+  margin: 0;
+  color: var(--paper);
+  text-align: center;
+  max-width: 400px;
+}
+.nowPlayingMeta {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: rgba(245, 245, 245, .7);
+}
+
+.playBtn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-top: 2px;
+}
+.playTriangle {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 15px solid var(--ink);
+  margin-left: 3px;
+}
+
+.bars { display: flex; align-items: flex-end; gap: 3px; height: 18px; margin-top: 2px; }
+.bars > div { width: 3px; height: 100%; background: var(--gold); border-radius: 2px; }
+
+/* Dial */
+.dialCard {
+  border: 1px solid rgba(var(--fg), .14);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.dial {
+  position: relative;
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 42%, rgba(var(--fg), .05), rgba(var(--fg), .02));
+  border: 1px solid rgba(var(--fg), .18);
+  cursor: grab;
+  flex: none;
+  user-select: none;
+  touch-action: none;
+}
+
+.dialSpoke { position: absolute; inset: 0; pointer-events: none; }
+
+.dialStop {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  pointer-events: auto;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  white-space: nowrap;
+}
+.dialDot { border-radius: 50%; transition: all .2s ease; }
+
+.needle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2px;
+  height: 72px;
+  background: var(--gold);
+  transform-origin: bottom center;
+  border-radius: 2px;
+  pointer-events: none;
+}
+.hub {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* Episode rail */
+.railCard {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 230px;
+  padding: 0;
+  text-align: left;
+  background: var(--ink);
+  border-radius: 8px;
+  border: 1px solid transparent;
+  overflow: hidden;
+  color: var(--paper);
+  cursor: pointer;
+  transition: border-color .2s ease, transform .2s ease;
+}
+.railCard:hover { transform: translateY(-3px); }
+
+.railImage { position: relative; aspect-ratio: 16 / 9; overflow: hidden; }
+.railImage img { object-fit: cover; }
+
+.railTitle {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 14.5px;
+  line-height: 1.25;
+  margin: 0 0 8px;
+}
+.railLength {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: rgba(245, 245, 245, .5);
+}
+
+@media (max-width: 860px) {
+  .top { grid-template-columns: 1fr; }
+}
