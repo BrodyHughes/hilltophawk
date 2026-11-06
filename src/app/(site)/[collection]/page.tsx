@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { CollectionTemplate } from "@/components/CollectionTemplate";
-import { COLLECTIONS, TAGS, getArticlesByCollection, getCollection } from "@/lib/content";
+import { COLLECTIONS, getArticlesByCollection, getCollection } from "@/lib/content";
 
 // /radio has its own route, so it's excluded here.
 export function generateStaticParams() {
@@ -21,7 +21,8 @@ async function CollectionContent({ params }: Pick<PageProps<"/[collection]">, "p
   if (!collection || collection.slug === "radio") notFound();
 
   const articles = await getArticlesByCollection(collection.slug);
-  const filterTags = TAGS.filter((t) => articles.some((a) => a.tags.includes(t.slug)));
+  // Filter chips: every tag used in this collection, deduplicated by slug.
+  const filterTags = [...new Map(articles.flatMap((a) => a.tags).map((t) => [t.slug, t])).values()];
 
   return (
     <CollectionTemplate

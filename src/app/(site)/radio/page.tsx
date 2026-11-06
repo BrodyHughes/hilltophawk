@@ -9,6 +9,7 @@ export default async function RadioPage() {
 
   return (
     <main style={{ paddingBottom: 40 }}>
+      <div data-compact-header hidden />
       <div className="container" style={{ paddingBottom: 8 }}>
         <div className="kicker" style={{ color: "var(--gold)", letterSpacing: ".14em", marginBottom: 4 }}>Audio</div>
         <h1

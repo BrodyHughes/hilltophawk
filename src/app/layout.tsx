@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
 import { Inter, Libre_Franklin, Source_Code_Pro, Source_Serif_4 } from "next/font/google";
-import { SiteHeader } from "@/components/SiteHeader";
-import { SiteFooter } from "@/components/SiteFooter";
-import { getActiveCollections, getActiveTags, getArticles, kickerFor, articleHref } from "@/lib/content";
 import "./globals.css";
 
 const libreFranklin = Libre_Franklin({
@@ -40,19 +37,9 @@ export const metadata: Metadata = {
 // Runs before first paint so dark mode doesn't flash light on load.
 const themeScript = `try{if(localStorage.getItem('hth-dark-mode')==='1')document.documentElement.dataset.theme='dark'}catch(e){}`;
 
-export default async function RootLayout({ children }: LayoutProps<"/">) {
-  const [collections, tags, articles] = await Promise.all([
-    getActiveCollections(),
-    getActiveTags(),
-    getArticles(),
-  ]);
-
-  const searchIndex = articles.map((a) => ({
-    title: a.title,
-    kicker: kickerFor(a),
-    href: articleHref(a.slug),
-  }));
-
+// Root layout: fonts, globals and theme only. The site header/footer live in
+// (site)/layout.tsx so the Sanity Studio at /studio doesn't get them.
+export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
@@ -62,11 +49,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body>
-        <SiteHeader collections={collections} tags={tags} searchIndex={searchIndex} />
-        {children}
-        <SiteFooter />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

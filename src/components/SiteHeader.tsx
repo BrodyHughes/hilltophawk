@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState, type ReactNode } from "react";
 import type { Collection, Tag } from "@/lib/content";
 import { Clock } from "./Clock";
 import { DragRow } from "./DragRow";
@@ -22,44 +22,29 @@ export function SiteHeader({
   tags: Tag[];
   searchIndex: SearchEntry[];
 }) {
-  const pathname = usePathname();
+  // This component deliberately doesn't read the URL: with Cache Components,
+  // usePathname() in a shared layout must sit inside <Suspense> (see NavLink).
+  // The radio page's compact masthead is handled in CSS via [data-compact-header].
   const [open, setOpen] = useState<OpenOverlay>(null);
   const close = useCallback(() => setOpen(null), []);
 
-  // Close any overlay when a link inside it navigates somewhere.
-  const [lastPath, setLastPath] = useState(pathname);
-  if (pathname !== lastPath) {
-    setLastPath(pathname);
-    setOpen(null);
-  }
-
-  // The radio page uses a smaller masthead so the player sits above the fold.
-  const compact = pathname === "/radio";
-
   return (
     <header>
-      <div className={`${styles.top} ${compact ? styles.topCompact : ""}`}>
+      <div className={styles.top}>
         <Link href="/" className={styles.mastheadLink}>
-          <Masthead compact={compact} />
+          <Masthead />
         </Link>
-        <Clock className={`${styles.clock} ${compact ? styles.clockCompact : ""}`} />
+        <Clock className={styles.clock} />
       </div>
 
-      <div className={`${styles.navWrap} ${compact ? styles.navWrapCompact : ""}`}>
+      <div className={styles.navWrap}>
         <nav className={styles.nav} aria-label="Main">
           <div className={styles.navItems}>
-            <Link href="/" className={styles.navItem} aria-current={pathname === "/" ? "page" : undefined}>
-              All
-            </Link>
+            <NavLink href="/">All</NavLink>
             {collections.map((c) => (
-              <Link
-                key={c.slug}
-                href={`/${c.slug}`}
-                className={styles.navItem}
-                aria-current={pathname === `/${c.slug}` ? "page" : undefined}
-              >
+              <NavLink key={c.slug} href={`/${c.slug}`}>
                 {c.name}
-              </Link>
+              </NavLink>
             ))}
           </div>
 
@@ -135,6 +120,29 @@ export function SiteHeader({
 
       {open === "search" && <SearchOverlay onClose={close} index={searchIndex} />}
     </header>
+  );
+}
+
+/** Nav link that highlights itself on the current page. Only the URL read suspends. */
+function NavLink({ href, children }: { href: string; children: ReactNode }) {
+  const plain = (
+    <Link href={href} className={styles.navItem}>
+      {children}
+    </Link>
+  );
+  return (
+    <Suspense fallback={plain}>
+      <ActiveNavLink href={href}>{children}</ActiveNavLink>
+    </Suspense>
+  );
+}
+
+function ActiveNavLink({ href, children }: { href: string; children: ReactNode }) {
+  const pathname = usePathname();
+  return (
+    <Link href={href} className={styles.navItem} aria-current={pathname === href ? "page" : undefined}>
+      {children}
+    </Link>
   );
 }
 

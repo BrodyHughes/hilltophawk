@@ -3,12 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense, type CSSProperties } from "react";
-import { getArticle, getArticles, getCollection, getTag, kickerFor, colorFor, tagHref } from "@/lib/content";
+import { ArticleBody } from "@/components/ArticleBody";
+import { atLeastOne, getArticle, getArticles, getCollection, kickerFor, colorFor, tagHref } from "@/lib/content";
 import styles from "./article.module.css";
 
 export async function generateStaticParams() {
   const articles = await getArticles();
-  return articles.map((a) => ({ slug: a.slug }));
+  return atLeastOne(
+    articles.map((a) => ({ slug: a.slug })),
+    { slug: "__none__" },
+  );
 }
 
 export async function generateMetadata({ params }: PageProps<"/articles/[slug]">): Promise<Metadata> {
@@ -30,7 +34,7 @@ export async function generateMetadata({ params }: PageProps<"/articles/[slug]">
 
 // Standard article layout. The design export doesn't include an article page,
 // so this follows the type and spacing of the other pages. Custom per-article
-// layouts (plan, phase 7) will hang off a `layout` field and swap this out.
+// layouts (plan, phase 7) will switch on `article.layout` and swap this out.
 async function ArticleContent({ params }: Pick<PageProps<"/articles/[slug]">, "params">) {
   const { slug } = await params;
   const article = await getArticle(slug);
@@ -61,7 +65,7 @@ async function ArticleContent({ params }: Pick<PageProps<"/articles/[slug]">, "p
       <div className={`frame ${styles.hero}`}>
         <Image
           src={article.image}
-          alt=""
+          alt={article.imageAlt}
           fill
           priority
           sizes="(max-width: 960px) 100vw, 960px"
@@ -69,22 +73,15 @@ async function ArticleContent({ params }: Pick<PageProps<"/articles/[slug]">, "p
         />
       </div>
 
-      <div className={styles.body}>
-        {article.body.map((p, i) => (
-          <p key={i}>{p}</p>
-        ))}
-      </div>
+      <ArticleBody value={article.body} className={styles.body} />
 
       {article.tags.length > 0 && (
         <div className={styles.tags}>
-          {article.tags.map((slug) => {
-            const tag = getTag(slug);
-            return tag ? (
-              <Link key={slug} href={tagHref(slug)} className={styles.tag}>
-                #{tag.name}
-              </Link>
-            ) : null;
-          })}
+          {article.tags.map((tag) => (
+            <Link key={tag.slug} href={tagHref(tag.slug)} className={styles.tag}>
+              #{tag.name}
+            </Link>
+          ))}
         </div>
       )}
     </article>

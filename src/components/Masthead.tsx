@@ -7,14 +7,24 @@ const FULL = "Hill Top Hawk";
 const TAGLINE = "Welcome to the Middle American Freakshow.";
 const IDLE_MS = 60_000;
 
-type Phase = "full" | "fading" | "condensed" | "deleting1" | "typing2" | "holding2" | "deleting2" | "typing3";
+type Phase =
+  | "full"
+  | "deleting0"
+  | "typing1"
+  | "condensed"
+  | "deleting1"
+  | "typing2"
+  | "holding2"
+  | "deleting2"
+  | "typing3";
 
 /**
- * The animated masthead from the prototype: 1.5s after load (then after every
- * 60s of inactivity) it fades to "hth*", the asterisk spins, the text types
- * out the tagline, holds, then types "Hill Top Hawk" back.
+ * The animated masthead: 1.5s after load (then after every 60s of inactivity)
+ * "Hill Top Hawk" is backspaced and "hth*" typed in, the asterisk spins as
+ * "hth" is backspaced, the tagline types out, holds, then "Hill Top Hawk"
+ * types back. Every change is typed; nothing fades.
  */
-export function Masthead({ compact = false }: { compact?: boolean }) {
+export function Masthead() {
   const [text, setText] = useState(FULL);
   const [phase, setPhase] = useState<Phase>("full");
   const phaseRef = useRef<Phase>("full");
@@ -61,30 +71,32 @@ export function Masthead({ compact = false }: { compact?: boolean }) {
     };
 
     function run() {
-      go("fading");
-      later(() => {
-        setText("hth");
-        go("condensed");
-      }, 220);
-      later(() => {
-        go("deleting1");
-        deleteText("hth", () => {
-          go("typing2");
-          typeText(TAGLINE, () => {
-            go("holding2");
-            later(() => {
-              go("deleting2");
-              deleteText(TAGLINE, () => {
-                go("typing3");
-                typeText(FULL, () => {
-                  go("full");
-                  scheduleIdle();
-                });
+      go("deleting0");
+      deleteText(FULL, () => {
+        go("typing1");
+        typeText("hth", () => {
+          go("condensed");
+          later(() => {
+            go("deleting1");
+            deleteText("hth", () => {
+              go("typing2");
+              typeText(TAGLINE, () => {
+                go("holding2");
+                later(() => {
+                  go("deleting2");
+                  deleteText(TAGLINE, () => {
+                    go("typing3");
+                    typeText(FULL, () => {
+                      go("full");
+                      scheduleIdle();
+                    });
+                  });
+                }, 3000);
               });
-            }, 3000);
-          });
+            });
+          }, 1800);
         });
-      }, 2000);
+      });
     }
 
     const onActivity = () => {
@@ -111,12 +123,13 @@ export function Masthead({ compact = false }: { compact?: boolean }) {
 
   return (
     <div
-      className={`${styles.masthead} ${compact ? styles.mastheadCompact : ""}`}
-      style={{ opacity: phase === "fading" ? 0 : 1 }}
+      className={styles.masthead}
       aria-label={FULL}
       role="img"
     >
-      <span>{text}</span>
+      {/* Zero-width space keeps a text baseline when every letter is deleted,
+          so the line box (and the page below it) doesn't jump. */}
+      <span>{text || "​"}</span>
       {showAsterisk && (
         <span className={styles.asterisk} style={{ animation: phase === "deleting1" ? "spin .5s linear infinite" : "none" }}>
           *

@@ -1,0 +1,44 @@
+.link {
+  text-decoration: underline;
+  text-decoration-color: var(--accent, var(--green));
+  text-underline-offset: 3px;
+}
+
+.quote {
+  margin: 0 0 1.3em;
+  padding-left: 18px;
+  border-left: 3px solid var(--accent, var(--green));
+  font-style: italic;
+  color: rgba(var(--fg), .8);
+}
+
+.figure { margin: 2em 0; }
+.figure img { border-radius: 3px; }
+
+.caption {
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(var(--fg), .5);
+}
+
+.pullQuote {
+  margin: 2em 0;
+  text-align: center;
+}
+.pullQuote blockquote {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(24px, 3.4vw, 34px);
+  line-height: 1.2;
+}
+.pullQuote figcaption {
+  margin-top: 12px;
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--accent, var(--green));
+}
