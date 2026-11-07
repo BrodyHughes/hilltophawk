@@ -76,16 +76,7 @@ export function SiteHeader({
           <div className={styles.overlayBody} style={{ maxWidth: 620 }}>
             <div className="eyebrow" style={{ marginBottom: 10 }}>About</div>
             <h2 className={styles.overlayTitle}>What is Hill Top Hawk?</h2>
-            <p className={styles.overlayText}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-              ex ea commodo consequat.
-            </p>
-            <p className={styles.overlayText}>
-              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-              laborum.
-            </p>
+            <p className={styles.overlayText}>hello brody hughes</p>
           </div>
         </Overlay>
       )}
