@@ -10,6 +10,14 @@ export const article = defineType({
     { name: "content", title: "Content", default: true },
     { name: "details", title: "Details" },
   ],
+  fieldsets: [
+    {
+      name: "imageVersions",
+      title: "Other image versions",
+      description: "Optional. Upload differently shaped versions of the cover for different spots on the site.",
+      options: { collapsible: true, collapsed: true },
+    },
+  ],
   fields: [
     defineField({
       name: "title",
@@ -39,7 +47,8 @@ export const article = defineType({
       title: "Cover Image",
       type: "image",
       group: "content",
-      description: "Drag the circle (hotspot) onto the most important part so crops keep it in view.",
+      description:
+        "The main image, used for the tall cards and anywhere a version below is missing. Drag the circle (hotspot) onto the most important part so crops keep it in view.",
       options: { hotspot: true },
       fields: [
         defineField({
@@ -50,6 +59,25 @@ export const article = defineType({
         }),
       ],
       validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "wideImage",
+      title: "Wide Version (optional)",
+      type: "image",
+      group: "content",
+      fieldset: "imageVersions",
+      description:
+        "A landscape version, ideally 2400 × 1350. Used for the article page header and the wide spots on the home and section pages. Leave empty to use the Cover Image.",
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: "squareImage",
+      title: "Square Version (optional)",
+      type: "image",
+      group: "content",
+      fieldset: "imageVersions",
+      description: "A square version, ideally 1200 × 1200. Used for the small thumbnails. Leave empty to use the Cover Image.",
+      options: { hotspot: true },
     }),
     defineField({
       name: "body",

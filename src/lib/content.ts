@@ -35,7 +35,17 @@ export type Article = {
   imageAlt: string;
   /** CSS object-position from the image hotspot, e.g. "50% 62%". */
   imagePosition?: string;
+  /** Landscape version for wide spots; falls back to the cover. */
+  wide: Picture;
+  /** Square version for thumbnails; falls back to the cover. */
+  square: Picture;
   layout: string;
+};
+
+export type Picture = {
+  src: string;
+  /** CSS object-position from the image hotspot. */
+  position?: string;
 };
 
 export type ArticleWithBody = Article & { body: PortableTextBlock[] };
@@ -59,8 +69,10 @@ type SanityImage = {
   alt?: string;
 };
 
-type RawArticle = Omit<Article, "image" | "imageAlt" | "imagePosition" | "tags"> & {
+type RawArticle = Omit<Article, "image" | "imageAlt" | "imagePosition" | "wide" | "square" | "tags"> & {
   image?: SanityImage;
+  wideImage?: SanityImage;
+  squareImage?: SanityImage;
   tags: (Tag | null)[];
 };
 
@@ -74,6 +86,8 @@ const ARTICLE_FIELDS = /* groq */ `
   kicker,
   "tags": coalesce(tags[]->{ name, "slug": slug.current }, []),
   image,
+  wideImage,
+  squareImage,
   "layout": coalesce(layout, "standard")
 `;
 
@@ -113,13 +127,21 @@ function hotspotPosition(image?: SanityImage) {
   return h ? `${(h.x * 100).toFixed(1)}% ${(h.y * 100).toFixed(1)}%` : undefined;
 }
 
-function toArticle({ image, tags, ...rest }: RawArticle): Article {
+// Use the given version if it was uploaded, otherwise fall back to the cover.
+function picture(version: SanityImage | undefined, cover: SanityImage | undefined): Picture {
+  const img = version?.asset ? version : cover;
+  return { src: imageUrl(img), position: hotspotPosition(img) };
+}
+
+function toArticle({ image, wideImage, squareImage, tags, ...rest }: RawArticle): Article {
   return {
     ...rest,
     tags: tags.filter((t): t is Tag => Boolean(t?.slug)),
     image: imageUrl(image),
     imageAlt: image?.alt ?? "",
     imagePosition: hotspotPosition(image),
+    wide: picture(wideImage, image),
+    square: picture(squareImage, image),
   };
 }
 

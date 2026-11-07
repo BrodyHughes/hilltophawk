@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: PageProps<"/articles/[slug]">
       description: article.dek,
       type: "article",
       publishedTime: article.date,
-      images: [article.image],
+      images: [article.wide.src],
     },
   };
 }
@@ -64,12 +64,12 @@ async function ArticleContent({ params }: Pick<PageProps<"/articles/[slug]">, "p
 
       <div className={`frame ${styles.hero}`}>
         <Image
-          src={article.image}
+          src={article.wide.src}
           alt={article.imageAlt}
           fill
           priority
           sizes="(max-width: 960px) 100vw, 960px"
-          style={{ objectPosition: article.imagePosition ?? "center" }}
+          style={{ objectPosition: article.wide.position ?? "center" }}
         />
       </div>
 
