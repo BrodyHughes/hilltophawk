@@ -94,3 +94,20 @@
   cursor: pointer;
 }
 :global(:root[data-theme="dark"]) .submit { background: var(--paper); color: var(--ink); }
+.submit:disabled { opacity: .6; cursor: progress; }
+
+.honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+
+.error {
+  margin: 14px 0 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #c0392b;
+}
+
+.note {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  color: rgba(var(--fg), .7);
+}

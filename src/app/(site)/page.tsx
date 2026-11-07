@@ -18,7 +18,12 @@ export default async function Home() {
   const more = rest.slice(7);
 
   if (!lead) {
-    return <main className="container" style={{ padding: "80px 24px", textAlign: "center" }}>Nothing atop the hill yet.</main>;
+    return (
+      <main style={{ paddingBottom: 64 }}>
+        <div className="container" style={{ padding: "80px 24px 0", textAlign: "center" }}>Nothing atop the hill yet.</div>
+        <ContactForm />
+      </main>
+    );
   }
 
   return (

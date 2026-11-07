@@ -21,7 +21,7 @@ Background docs outside the repo (in the parent `hilltop/` folder):
 | Content | Design placeholder stories seeded into Sanity (see §5 to remove) |
 | Instant publishing (webhook → `/api/revalidate`) | Built and tested locally; **webhook not yet created in Sanity** (needs the live URL) |
 | Draft preview before publishing | Not built (see §4) |
-| Contact form | **UI only**, does not submit |
+| Contact form | Works: type or draw; saved to Sanity as private `contactMessage` docs (`contact.<uuid>` IDs, sketch stored as a PNG data URL), listed under **Messages** in the Studio. Needs `SANITY_API_WRITE_TOKEN`. No email notification yet. |
 | Radio playback | **UI only**; episodes have an `audioUrl` field ready |
 | Search | Works, client-side, matches title + kicker only |
 | Collection page "Sort" and pagination | Static label, no pagination |
