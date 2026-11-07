@@ -235,6 +235,19 @@
   margin: 0 0 20px;
 }
 
+/* Info overlay: the animated masthead, bigger. The tagline wraps to two
+   lines here, so the box is fixed at two lines tall and the text centered in
+   it; nothing below jumps while it types. */
+.aboutMasthead { margin: 0 0 28px; font-size: inherit; font-weight: inherit; }
+.masthead.mastheadLarge {
+  font-size: clamp(40px, 9vw, 64px);
+  line-height: 1.05;
+  height: 2.2em;
+  align-items: center;
+  white-space: normal;
+  text-align: center;
+}
+
 .overlayText {
   font-size: 17px;
   line-height: 1.6;

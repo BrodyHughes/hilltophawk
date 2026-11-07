@@ -74,9 +74,16 @@ export function SiteHeader({
       {open === "info" && (
         <Overlay onClose={close} label="About Hill Top Hawk">
           <div className={styles.overlayBody} style={{ maxWidth: 620 }}>
-            <div className="eyebrow" style={{ marginBottom: 10 }}>About</div>
-            <h2 className={styles.overlayTitle}>What is Hill Top Hawk?</h2>
-            <p className={styles.overlayText}>hello brody hughes</p>
+            <h2 className={styles.aboutMasthead}>
+              <Masthead className={styles.mastheadLarge} />
+            </h2>
+            <p className={styles.overlayText}>
+              Hill Top Hawk is a publication and the headline piece therein. It is a cult and a human interest story.
+              It is a disciplined left wing militia in cahoots with organized crime all around the western hemisphere.
+              It also likes watching basketball.
+            </p>
+            <p className={styles.overlayText}>The Hawk, as it&rsquo;s colloquially known, is carrying the flame every day.</p>
+            <p className={styles.overlayText}>Read Hill Top Hawk, thanks.</p>
           </div>
         </Overlay>
       )}

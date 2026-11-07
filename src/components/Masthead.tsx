@@ -24,7 +24,7 @@ type Phase =
  * "hth" is backspaced, the tagline types out, holds, then "Hill Top Hawk"
  * types back. Every change is typed; nothing fades.
  */
-export function Masthead() {
+export function Masthead({ className }: { className?: string } = {}) {
   const [text, setText] = useState(FULL);
   const [phase, setPhase] = useState<Phase>("full");
   const phaseRef = useRef<Phase>("full");
@@ -123,7 +123,7 @@ export function Masthead() {
 
   return (
     <div
-      className={styles.masthead}
+      className={className ? `${styles.masthead} ${className}` : styles.masthead}
       aria-label={FULL}
       role="img"
     >
