@@ -2,8 +2,13 @@
 
 .card {
   border: 1px solid rgba(var(--fg), .14);
-  border-radius: 10px;
+  /* Matches the header nav's corners: a 54px-tall pill on desktop (27px),
+     22px once it wraps on small screens (SiteHeader.module.css). */
+  border-radius: 27px;
   padding: 32px;
+}
+@media (max-width: 860px) {
+  .card { border-radius: 22px; }
 }
 
 .title {
