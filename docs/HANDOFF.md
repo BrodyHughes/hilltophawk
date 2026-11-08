@@ -150,7 +150,8 @@ after at least one real article exists, or the home page will be empty.
   sequence starts 1.5s after load and repeats after 60s idle; it's skipped with
   `prefers-reduced-motion`. Every change is typed (no fades), and a zero-width
   space holds the line height while the text is empty so the page doesn't jump;
-  don't remove it.
+  don't remove it. On narrow screens the tagline is set smaller (`.tagline`,
+  scales with viewport width) so it stays on one line rather than wrapping.
 - The clock is blank in server HTML on purpose; it renders the visitor's local time on the client.
 - `npm` prints `EBADENGINE` warnings on Node 20: the Sanity packages need Node
   ≥22.12. Use `nvm use` (reads `.nvmrc`, Node 24).

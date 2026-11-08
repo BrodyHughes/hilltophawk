@@ -25,6 +25,11 @@
 
 .asterisk { display: inline-block; margin-left: 2px; }
 
+/* The tagline is ~21.3em wide; shrink it to fit narrow screens (minus the
+   header's 24px side padding) instead of wrapping, which would change the
+   masthead height. The size only changes while the line is empty. */
+.tagline { font-size: min(1em, calc((100vw - 48px) / 22)); }
+
 .clock {
   margin-top: 6px;
   font-family: var(--font-mono);

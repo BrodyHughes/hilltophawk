@@ -120,6 +120,7 @@ export function Masthead({ className }: { className?: string } = {}) {
   }, []);
 
   const showAsterisk = phase === "condensed" || phase === "deleting1";
+  const isTagline = phase === "typing2" || phase === "holding2" || phase === "deleting2";
 
   return (
     <div
@@ -129,7 +130,7 @@ export function Masthead({ className }: { className?: string } = {}) {
     >
       {/* Zero-width space keeps a text baseline when every letter is deleted,
           so the line box (and the page below it) doesn't jump. */}
-      <span>{text || "​"}</span>
+      <span className={isTagline ? styles.tagline : undefined}>{text || "​"}</span>
       {showAsterisk && (
         <span className={styles.asterisk} style={{ animation: phase === "deleting1" ? "spin .5s linear infinite" : "none" }}>
           *
