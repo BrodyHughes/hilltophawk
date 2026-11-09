@@ -89,12 +89,10 @@ export function LeadCard({ article }: { article: Article }) {
           <h1 className={styles.leadTitle}>
             <span className="hl">{article.title}</span>
           </h1>
+          {article.dek && <p className={styles.leadDek}>{article.dek}</p>}
           <div className={styles.leadByline}>By {article.author}</div>
         </div>
       </div>
-      <p className="dek" style={{ padding: "12px 2px 0", fontSize: 15, lineHeight: 1.45, color: "rgba(var(--fg),.72)", maxWidth: 540 }}>
-        {article.dek}
-      </p>
     </Link>
   );
 }

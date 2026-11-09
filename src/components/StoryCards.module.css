@@ -85,6 +85,23 @@
 .leadTitle :global(.hl) {
   background-image: linear-gradient(rgba(78, 147, 122, .55), rgba(78, 147, 122, .55));
 }
+/* Subtitle sits inside the caption bar so the lead story reads as one block. */
+.leadDek {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.45;
+  color: rgba(245, 245, 245, .8);
+  margin: 6px 0 8px;
+  max-width: 640px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+/* In dark mode the black caption bar matches the page, so outline the card. */
+:global(:root[data-theme="dark"]) .leadImage { box-shadow: 0 0 0 1px rgba(245, 245, 245, .14); }
+
 .leadByline {
   font-style: italic;
   font-size: 12.5px;
