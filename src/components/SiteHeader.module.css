@@ -56,7 +56,7 @@
 :global(body:has([data-compact-header])) .navWrap { margin: 6px auto 10px; }
 
 .nav {
-  background: var(--ink);
+  background: var(--green);
   border-radius: 999px;
   display: flex;
   align-items: center;
@@ -169,6 +169,25 @@
   transition: left .2s ease;
 }
 :global(:root[data-theme="dark"]) .themeKnob { left: 22px; }
+
+/* Dark mode nav: same dark fill as the page, outlined in green, with green
+   hover/active states and green borders on the controls. */
+:global(:root[data-theme="dark"]) .nav {
+  background: var(--ink);
+  box-shadow: inset 0 0 0 1.5px var(--green), 0 10px 30px rgba(0, 0, 0, .35);
+}
+:global(:root[data-theme="dark"]) .navItem:hover,
+:global(:root[data-theme="dark"]) .navItem[aria-current="page"],
+:global(:root[data-theme="dark"]) .allTagsBtn:hover,
+:global(:root[data-theme="dark"]) .infoBtn:hover { background: rgba(78, 147, 122, .3); }
+:global(:root[data-theme="dark"]) .navDivider { background: rgba(78, 147, 122, .6); }
+:global(:root[data-theme="dark"]) .tagChip { border-color: rgba(78, 147, 122, .55); }
+:global(:root[data-theme="dark"]) .tagChip:hover { background: rgba(78, 147, 122, .3); }
+:global(:root[data-theme="dark"]) .allTagsBtn,
+:global(:root[data-theme="dark"]) .infoBtn,
+:global(:root[data-theme="dark"]) .themeToggle { border-color: var(--green); }
+:global(:root[data-theme="dark"]) .searchBtn { background: var(--green); }
+:global(:root[data-theme="dark"]) .themeKnob { background: var(--green); }
 
 .searchBtn {
   flex: none;
