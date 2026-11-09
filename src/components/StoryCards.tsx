@@ -119,7 +119,7 @@ export function FeaturedCard({ article }: { article: Article }) {
         <p className="dek" style={{ fontSize: 15, lineHeight: 1.5, color: "rgba(var(--fg),.65)", margin: "0 0 10px", maxWidth: 480 }}>
           {article.dek}
         </p>
-        <div className="dek" style={{ fontSize: 12.5, color: "rgba(var(--fg),.5)" }}>By {article.author}</div>
+        <div className={styles.featuredByline}>By {article.author}</div>
       </div>
     </Link>
   );

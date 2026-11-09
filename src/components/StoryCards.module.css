@@ -40,9 +40,13 @@
   line-height: 1.35;
   margin: 0;
 }
-.railByline {
-  font-style: italic;
-  font-size: 12.5px;
+/* Bylines use the same small monospace as the article page, so they read as
+   metadata rather than a smaller copy of the italic subtitle. */
+.railByline,
+.featuredByline {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .04em;
   color: rgba(var(--fg), .55);
 }
 
@@ -103,9 +107,10 @@
 :global(:root[data-theme="dark"]) .leadImage { box-shadow: 0 0 0 1px rgba(245, 245, 245, .14); }
 
 .leadByline {
-  font-style: italic;
-  font-size: 12.5px;
-  color: rgba(245, 245, 245, .65);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .04em;
+  color: rgba(245, 245, 245, .6);
 }
 
 /* Featured card */
