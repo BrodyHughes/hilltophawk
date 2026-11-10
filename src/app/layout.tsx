@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Libre_Franklin, Source_Code_Pro, Source_Serif_4 } from "next/font/google";
+import { siteUrl } from "@/lib/site-url";
 import "./globals.css";
 
 const libreFranklin = Libre_Franklin({
@@ -26,7 +27,7 @@ const sourceCodePro = Source_Code_Pro({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: siteUrl,
   title: {
     default: "Hill Top Hawk",
     template: "%s · Hill Top Hawk",

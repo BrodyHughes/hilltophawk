@@ -112,6 +112,20 @@ export const article = defineType({
         "Optional. The small colored label above the headline. Leave empty to show the collection name (e.g. “Sports”). Examples: Fiction, Television, Sports & Culture.",
     }),
     defineField({
+      name: "shareHighlight",
+      title: "Share Image Highlight",
+      type: "string",
+      group: "details",
+      description:
+        "Optional. A few words copied exactly from the headline (e.g. “Eat Cake?”) to mark with the green highlighter on the share images people post to social media. Leave empty for no highlight.",
+      validation: (rule) =>
+        rule.custom((value, context) => {
+          const title = (context.document?.title as string | undefined) ?? "";
+          if (!value || title.toLowerCase().includes(value.trim().toLowerCase())) return true;
+          return "These words need to match part of the headline exactly.";
+        }),
+    }),
+    defineField({
       name: "author",
       type: "string",
       group: "details",

@@ -196,6 +196,46 @@ export async function getActiveTags(): Promise<Tag[]> {
   return tags.filter((t) => articles.some((a) => a.tags.some((at) => at.slug === t.slug)));
 }
 
+/** Everything the share images need for one article. */
+export type ShareArticle = {
+  slug: string;
+  title: string;
+  dek: string;
+  author: string;
+  kicker: string;
+  color: string;
+  tags: string[];
+  /** Words of the headline to mark with the green highlighter, if any. */
+  highlight?: string;
+  /** Cover image URL, cropped around the hotspot to the given size. */
+  image: (width: number, height: number) => string | undefined;
+};
+
+const SHARE_QUERY = defineQuery(`
+  *[_type == "article" && slug.current == $slug][0] { ${ARTICLE_FIELDS}, shareHighlight }
+`);
+
+export async function getShareArticle(slug: string): Promise<ShareArticle | undefined> {
+  const raw = await fetchContent<(RawArticle & { shareHighlight?: string | null }) | null>(SHARE_QUERY, { slug });
+  if (!raw) return undefined;
+  const article = toArticle(raw);
+  const cover = raw.image;
+  return {
+    slug: article.slug,
+    title: article.title,
+    dek: article.dek,
+    author: article.author,
+    kicker: kickerFor(article),
+    color: colorFor(article),
+    tags: article.tags.map((t) => t.name),
+    highlight: raw.shareHighlight?.trim() || undefined,
+    // JPEG at an exact size: the image renderer can't read WebP, and cropping
+    // here (around the hotspot) keeps the important part in frame.
+    image: (width, height) =>
+      cover?.asset ? urlFor(cover).width(width).height(height).fit("crop").format("jpg").quality(85).url() : undefined,
+  };
+}
+
 /**
  * With Cache Components, generateStaticParams must return at least one entry or
  * the build fails. Before any content exists, fall back to a placeholder that

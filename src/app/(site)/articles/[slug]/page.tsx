@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense, type CSSProperties } from "react";
 import { ArticleBody } from "@/components/ArticleBody";
+import { ShareButton } from "@/components/ShareButton";
 import { atLeastOne, getArticle, getArticles, getCollection, kickerFor, colorFor, tagHref } from "@/lib/content";
 import styles from "./article.module.css";
 
@@ -27,8 +28,9 @@ export async function generateMetadata({ params }: PageProps<"/articles/[slug]">
       description: article.dek,
       type: "article",
       publishedTime: article.date,
-      images: [article.wide.src],
+      // The preview image comes from opengraph-image.tsx in this folder.
     },
+    twitter: { card: "summary_large_image", title: article.title, description: article.dek },
   };
 }
 
@@ -60,6 +62,7 @@ async function ArticleContent({ params }: Pick<PageProps<"/articles/[slug]">, "p
         <div className={styles.byline}>
           By {article.author} &middot; <time dateTime={article.date}>{date}</time>
         </div>
+        <ShareButton slug={article.slug} title={article.title} />
       </header>
 
       <div className={`frame ${styles.hero}`}>
