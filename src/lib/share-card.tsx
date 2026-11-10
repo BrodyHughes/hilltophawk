@@ -21,7 +21,6 @@ const INK = "#141413";
 const CARD = "#1C1C1B";
 const FRAME = "#262624";
 const PAPER = "#F5F5F5";
-const GREEN = "#4E937A";
 const soft = "rgba(245,245,245,.75)";
 const dim = "rgba(245,245,245,.55)";
 
@@ -55,7 +54,8 @@ function Mark({ size }: { size: number }) {
   return (
     <div style={{ display: "flex", fontFamily: DISPLAY, fontWeight: 900, fontSize: size, lineHeight: 1, letterSpacing: "-0.015em", color: PAPER }}>
       <span>hth</span>
-      <span style={{ color: GREEN }}>*</span>
+      {/* The mark is always one color: hth and * together. */}
+      <span>*</span>
     </div>
   );
 }
