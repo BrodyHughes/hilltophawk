@@ -21,17 +21,11 @@ const FORMATS: { format: Format; label: string; note: string }[] = [
 ];
 
 /**
- * Share controls for an article.
+ * Share menu for an article: story/post images (share sheet on phones,
+ * download elsewhere), copy link, and X / Facebook / LinkedIn.
  *
- * - "Share" opens a menu: story/post images (share sheet on phones, download
- *   elsewhere), copy link, and X / Facebook / LinkedIn.
- * - "Share to Story" (phones only) skips the menu and opens the share sheet
- *   with the story image attached. A website can't open Instagram's story
- *   editor directly (Instagram only allows that from installed apps), so this
- *   is the shortest path: tap it, then tap Instagram › Story.
- *
- * Images are fetched ahead of time because phones only allow the share sheet
- * right after a tap; waiting on a download first can make it refuse to open.
+ * Images are fetched when the menu opens because phones only allow the share
+ * sheet right after a tap; waiting on a download first can make it refuse.
  */
 export function ShareButton({ slug, title }: Props) {
   const [open, setOpen] = useState(false);
@@ -59,16 +53,14 @@ export function ShareButton({ slug, title }: Props) {
     return files.current[format];
   }
 
-  // Phones that can share images get the Share to Story button, with the
-  // story image loaded in the background so the share sheet opens instantly.
-  useEffect(() => {
-    if (canShareFiles) getFile("story").catch(() => {});
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [canShareFiles, slug]);
-
   useEffect(() => {
     if (!open) return;
-    if (canShareFiles) getFile("feed").catch(() => {});
+    // Start loading both images as soon as the menu opens, so the share sheet
+    // opens straight away when one is tapped.
+    if (canShareFiles) {
+      getFile("story").catch(() => {});
+      getFile("feed").catch(() => {});
+    }
     const onDown = (e: PointerEvent) => {
       if (!wrap.current?.contains(e.target as Node)) setOpen(false);
     };
@@ -127,32 +119,18 @@ export function ShareButton({ slug, title }: Props) {
 
   return (
     <div className={styles.wrap} ref={wrap}>
-      <div className={styles.row}>
-        <button
-          type="button"
-          className={styles.button}
-          aria-expanded={open}
-          aria-controls={menuId}
-          onClick={() => {
-            setStatus("");
-            setOpen((o) => !o);
-          }}
-        >
-          Share
-        </button>
-        {canShareFiles && (
-          <button
-            type="button"
-            className={styles.storyButton}
-            onClick={() => {
-              setOpen(false);
-              shareImage("story");
-            }}
-          >
-            Share to Story
-          </button>
-        )}
-      </div>
+      <button
+        type="button"
+        className={styles.button}
+        aria-expanded={open}
+        aria-controls={menuId}
+        onClick={() => {
+          setStatus("");
+          setOpen((o) => !o);
+        }}
+      >
+        Share
+      </button>
 
       {open && (
         <div id={menuId} className={styles.menu}>
@@ -177,7 +155,6 @@ export function ShareButton({ slug, title }: Props) {
         </div>
       )}
 
-      {/* Outside the menu so "Couldn't make the image" still shows after Share to Story. */}
       <p className={styles.status} role="status" aria-live="polite">
         {status}
       </p>

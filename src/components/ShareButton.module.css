@@ -18,30 +18,7 @@
   cursor: pointer;
 }
 .button:hover { background: #42806a; }
-.button:focus-visible,
-.storyButton:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
-
-/* Outlined pill beside Share: same shape, quieter weight. */
-.storyButton {
-  padding: 8px 20px;
-  border-radius: 999px;
-  border: 2px solid var(--green);
-  background: transparent;
-  color: rgb(var(--fg));
-  font-family: var(--font-ui);
-  font-weight: 600;
-  font-size: 12.5px;
-  letter-spacing: .02em;
-  cursor: pointer;
-}
-.storyButton:hover { background: rgba(78, 147, 122, .18); }
+.button:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
 
 .menu {
   position: absolute;
