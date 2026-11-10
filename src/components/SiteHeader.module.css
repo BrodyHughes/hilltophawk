@@ -189,21 +189,40 @@
 :global(:root[data-theme="dark"]) .searchBtn { background: var(--green); }
 :global(:root[data-theme="dark"]) .themeKnob { background: var(--green); }
 
+/* Search reads as a field: a wide pill with the icon and the word "Search".
+   Clicking it opens the search overlay. */
 .searchBtn {
   flex: none;
-  width: 36px;
+  width: 176px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: 999px;
   background: var(--paper);
   border: none;
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 10px;
   cursor: pointer;
   margin-left: 8px;
-  padding: 0;
+  padding: 0 16px 0 15px;
+  transition: box-shadow .15s ease;
+}
+.searchBtn:hover { box-shadow: 0 0 0 3px rgba(255, 255, 255, .28); }
+.searchBtn:focus-visible { outline: 2px solid var(--paper); outline-offset: 3px; }
+.searchText {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: .02em;
+  color: rgba(20, 20, 19, .66);
+}
+:global(:root[data-theme="dark"]) .searchText { color: var(--ink); }
+:global(:root[data-theme="dark"]) .searchBtn:hover { box-shadow: 0 0 0 3px rgba(78, 147, 122, .35); }
+:global(:root[data-theme="dark"]) .searchBtn:focus-visible { outline-color: var(--green); }
+@media (prefers-reduced-motion: reduce) {
+  .searchBtn { transition: none; }
 }
 .searchIcon {
+  flex: none;
   position: relative;
   width: 11px;
   height: 11px;
@@ -405,5 +424,6 @@
   .nav { border-radius: 22px; flex-wrap: wrap; row-gap: 4px; }
   .navItems { flex: 1 1 100%; min-width: 0; overflow-x: auto; scrollbar-width: none; }
   .navDivider { display: none; }
+  .searchBtn { width: 124px; }
   .masthead { font-size: 26px; }
 }

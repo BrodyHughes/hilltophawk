@@ -65,8 +65,9 @@ export function SiteHeader({
             i
           </button>
           <ThemeToggle />
-          <button type="button" onClick={() => setOpen("search")} aria-label="Search" className={styles.searchBtn}>
-            <span className={styles.searchIcon} />
+          <button type="button" onClick={() => setOpen("search")} className={styles.searchBtn}>
+            <span className={styles.searchIcon} aria-hidden="true" />
+            <span className={styles.searchText}>Search</span>
           </button>
         </nav>
       </div>
