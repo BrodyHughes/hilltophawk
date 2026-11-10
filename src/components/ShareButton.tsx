@@ -1,7 +1,16 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
 import styles from "./ShareButton.module.css";
+
+let canShareFilesCache: boolean | undefined;
+function browserCanShareFiles() {
+  canShareFilesCache ??= Boolean(
+    navigator.canShare?.({ files: [new File([""], "probe.png", { type: "image/png" })] }),
+  );
+  return canShareFilesCache;
+}
+const noSubscribe = () => () => {};
 
 type Props = { slug: string; title: string };
 type Format = "feed" | "story";
@@ -27,7 +36,8 @@ const FORMATS: { format: Format; label: string; note: string }[] = [
 export function ShareButton({ slug, title }: Props) {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState("");
-  const [canShareFiles, setCanShareFiles] = useState(false);
+  // false on the server and first paint, then the browser's real answer.
+  const canShareFiles = useSyncExternalStore(noSubscribe, browserCanShareFiles, () => false);
   const menuId = useId();
   const wrap = useRef<HTMLDivElement>(null);
   const files = useRef<Partial<Record<Format, Promise<File>>>>({});
@@ -52,12 +62,9 @@ export function ShareButton({ slug, title }: Props) {
   // Phones that can share images get the Share to Story button, with the
   // story image loaded in the background so the share sheet opens instantly.
   useEffect(() => {
-    const probe = new File([""], "probe.png", { type: "image/png" });
-    if (!navigator.canShare?.({ files: [probe] })) return;
-    setCanShareFiles(true);
-    getFile("story").catch(() => {});
+    if (canShareFiles) getFile("story").catch(() => {});
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slug]);
+  }, [canShareFiles, slug]);
 
   useEffect(() => {
     if (!open) return;
