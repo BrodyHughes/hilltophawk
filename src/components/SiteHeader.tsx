@@ -50,7 +50,7 @@ export function SiteHeader({
 
           <div className={styles.navDivider} />
 
-          <DragRow className={styles.tagRail}>
+          <DragRow className={styles.tagRail} fade hint>
             {tags.map((t) => (
               <Link key={t.slug} href={`/tag/${t.slug}`} className={styles.tagChip} draggable={false}>
                 #{t.name}

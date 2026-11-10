@@ -158,6 +158,17 @@ button { font: inherit; color: inherit; }
 .drag-row.dragging { cursor: grabbing; }
 .drag-row.dragging * { pointer-events: none; }
 
+/* Rows with <DragRow fade>: the edge with more content past it fades out,
+   so a cut-off item reads as "swipe for more". DragRow sets the attributes. */
+.drag-row[data-fade] {
+  --fade-l: 0px;
+  --fade-r: 0px;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent);
+}
+.drag-row[data-fade][data-more-left] { --fade-l: 22px; }
+.drag-row[data-fade][data-more-right] { --fade-r: 40px; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .01ms !important;
