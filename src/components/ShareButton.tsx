@@ -39,6 +39,7 @@ export function ShareButton({ slug, title }: Props) {
   }, [open]);
 
   const articleUrl = () => `${window.location.origin}/articles/${slug}`;
+  const shareText = `${title}\n\nRead on Hill Top Hawk`;
 
   async function shareImage(format: Format) {
     setStatus("Making image…");
@@ -51,7 +52,7 @@ export function ShareButton({ slug, title }: Props) {
       if (navigator.canShare?.({ files: [file] })) {
         setStatus("");
         // Files only: some apps (Instagram among them) drop the image if text is attached too.
-        await navigator.share({ files: [file], title });
+        await navigator.share({ files: [file], title: shareText });
         return;
       }
 
@@ -79,7 +80,7 @@ export function ShareButton({ slug, title }: Props) {
 
   const enc = (s: string) => encodeURIComponent(s);
   const socials = () => [
-    { label: "Post on X", href: `https://x.com/intent/post?text=${enc(title)}&url=${enc(articleUrl())}` },
+    { label: "Post on X", href: `https://x.com/intent/post?text=${enc(shareText)}&url=${enc(articleUrl())}` },
     { label: "Share on Facebook", href: `https://www.facebook.com/sharer/sharer.php?u=${enc(articleUrl())}` },
     { label: "Share on LinkedIn", href: `https://www.linkedin.com/sharing/share-offsite/?url=${enc(articleUrl())}` },
   ];
