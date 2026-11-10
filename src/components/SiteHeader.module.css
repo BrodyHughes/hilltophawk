@@ -186,37 +186,52 @@
 :global(:root[data-theme="dark"]) .allTagsBtn,
 :global(:root[data-theme="dark"]) .infoBtn,
 :global(:root[data-theme="dark"]) .themeToggle { border-color: var(--green); }
-:global(:root[data-theme="dark"]) .searchBtn { background: var(--green); }
 :global(:root[data-theme="dark"]) .themeKnob { background: var(--green); }
 
-/* Search reads as a field: a wide pill with the icon and the word "Search".
-   Clicking it opens the search overlay. */
+/* Search reads as a field: a frosted-glass pill with the icon and the word
+   "Search", see-through so it sits on the nav rather than over it. Clicking
+   it opens the search overlay. */
 .searchBtn {
   flex: none;
-  width: 176px;
-  height: 36px;
+  width: 132px;
+  height: 32px;
   border-radius: 999px;
-  background: var(--paper);
-  border: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .24), rgba(255, 255, 255, .1));
+  border: 1px solid rgba(255, 255, 255, .34);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .28), 0 2px 8px rgba(20, 20, 19, .1);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  backdrop-filter: blur(10px) saturate(140%);
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   cursor: pointer;
   margin-left: 8px;
-  padding: 0 16px 0 15px;
-  transition: box-shadow .15s ease;
+  padding: 0 14px 0 13px;
+  color: var(--paper);
+  transition: background .15s ease, border-color .15s ease;
 }
-.searchBtn:hover { box-shadow: 0 0 0 3px rgba(255, 255, 255, .28); }
+.searchBtn:hover {
+  background: linear-gradient(180deg, rgba(255, 255, 255, .32), rgba(255, 255, 255, .16));
+  border-color: rgba(255, 255, 255, .5);
+}
 .searchBtn:focus-visible { outline: 2px solid var(--paper); outline-offset: 3px; }
 .searchText {
   font-family: var(--font-ui);
   font-weight: 600;
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: .02em;
-  color: rgba(20, 20, 19, .66);
 }
-:global(:root[data-theme="dark"]) .searchText { color: var(--ink); }
-:global(:root[data-theme="dark"]) .searchBtn:hover { box-shadow: 0 0 0 3px rgba(78, 147, 122, .35); }
+
+/* Dark mode: green-tinted glass on the dark nav. */
+:global(:root[data-theme="dark"]) .searchBtn {
+  background: linear-gradient(180deg, rgba(78, 147, 122, .34), rgba(78, 147, 122, .14));
+  border-color: rgba(78, 147, 122, .75);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 2px 8px rgba(0, 0, 0, .25);
+}
+:global(:root[data-theme="dark"]) .searchBtn:hover {
+  background: linear-gradient(180deg, rgba(78, 147, 122, .46), rgba(78, 147, 122, .22));
+  border-color: var(--green);
+}
 :global(:root[data-theme="dark"]) .searchBtn:focus-visible { outline-color: var(--green); }
 @media (prefers-reduced-motion: reduce) {
   .searchBtn { transition: none; }
@@ -224,20 +239,20 @@
 .searchIcon {
   flex: none;
   position: relative;
-  width: 11px;
-  height: 11px;
-  border: 2px solid var(--ink);
+  width: 10px;
+  height: 10px;
+  border: 1.75px solid currentColor;
   border-radius: 50%;
   display: inline-block;
 }
 .searchIcon::after {
   content: "";
   position: absolute;
-  width: 2px;
-  height: 7px;
-  background: var(--ink);
-  bottom: -6px;
-  right: -4px;
+  width: 1.75px;
+  height: 6px;
+  background: currentColor;
+  bottom: -5px;
+  right: -3.5px;
   transform: rotate(-45deg);
   border-radius: 1px;
 }
@@ -424,6 +439,6 @@
   .nav { border-radius: 22px; flex-wrap: wrap; row-gap: 4px; }
   .navItems { flex: 1 1 100%; min-width: 0; overflow-x: auto; scrollbar-width: none; }
   .navDivider { display: none; }
-  .searchBtn { width: 124px; }
+  .searchBtn { width: 112px; }
   .masthead { font-size: 26px; }
 }
