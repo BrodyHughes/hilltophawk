@@ -83,3 +83,180 @@
   text-align: center;
 }
 .status:not(:empty) { padding-top: 8px; }
+
+/* Share image panel ------------------------------------------------------ */
+
+.panel {
+  width: min(440px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  box-sizing: border-box;
+  margin: auto;
+  padding: 18px 18px 14px;
+  overflow: auto;
+  background: rgb(var(--bg));
+  color: rgb(var(--fg));
+  border: 1px solid rgba(var(--fg), .14);
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(20, 20, 19, .35);
+  text-align: left;
+}
+.panel[open] { animation: fadeIn .18s ease; }
+.panel:focus { outline: none; } /* the panel takes focus on open, not the close button */
+.panel::backdrop {
+  background: rgba(20, 20, 19, .55);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.panelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.panelTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 20px;
+  letter-spacing: -.01em;
+}
+.close {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--fg), .2);
+  background: transparent;
+  color: rgb(var(--fg));
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+.close:hover { background: rgba(78, 147, 122, .18); }
+.close:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 10px;
+  padding: 0;
+  border: none;
+}
+
+.choice { position: relative; cursor: pointer; }
+.choice input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+.choice span {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(var(--fg), .2);
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: .02em;
+  white-space: nowrap;
+}
+.choice:hover span { background: rgba(78, 147, 122, .14); }
+.choice input:checked + span {
+  background: var(--green);
+  border-color: var(--green);
+  color: var(--paper);
+}
+.choice input:focus-visible + span { outline: 2px solid var(--green); outline-offset: 2px; }
+
+/* The preview fits within the panel at the image's own shape. While it
+   loads, a placeholder holds the same shape so the panel doesn't jump. */
+.preview {
+  display: flex;
+  justify-content: center;
+  margin: 6px 0 14px;
+}
+.previewImg,
+.previewNote {
+  display: block;
+  max-width: 100%;
+  max-height: min(52dvh, 470px);
+  border-radius: 12px;
+}
+.previewNote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: min(52dvh, 470px);
+  margin: 0;
+  padding: 0 16px;
+  box-sizing: border-box;
+  background: rgba(var(--fg), .06);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(var(--fg), .6);
+  text-align: center;
+}
+.previewImg { box-shadow: 0 0 0 1px rgba(var(--fg), .16); } /* edge shows on the dark panel */
+.previewPost .previewNote { aspect-ratio: 4 / 5; }
+.previewStory .previewNote { aspect-ratio: 9 / 16; }
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+.primary,
+.secondary {
+  flex: 1;
+  min-height: 44px;
+  border-radius: 999px;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 13.5px;
+  letter-spacing: .02em;
+  cursor: pointer;
+}
+.primary {
+  border: none;
+  background: var(--green);
+  color: var(--paper);
+}
+.primary:hover { background: #42806a; }
+.secondary {
+  border: 1.5px solid var(--green);
+  background: transparent;
+  color: rgb(var(--fg));
+}
+.secondary:hover { background: rgba(78, 147, 122, .14); }
+.primary:focus-visible,
+.secondary:focus-visible { outline: 2px solid var(--green); outline-offset: 3px; }
+.primary:disabled,
+.secondary:disabled { opacity: .45; cursor: default; }
+
+.panelStatus {
+  margin: 0;
+  min-height: 1em;
+  padding-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(var(--fg), .6);
+  text-align: center;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu,
+  .panel[open] { animation: none; }
+}

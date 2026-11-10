@@ -5,8 +5,10 @@
 
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+import type { ReactNode } from "react";
 import { ImageResponse } from "next/og";
 import type { ShareArticle } from "./content";
+import { DEFAULT_POST_STYLE, type PostStyle } from "./share-styles";
 import { siteUrl } from "./site-url";
 
 export type ShareFormat = "feed" | "story" | "og";
@@ -60,15 +62,18 @@ function Mark({ size }: { size: number }) {
   );
 }
 
-function Pills({ article, size }: { article: ShareArticle; size: number }) {
+/** Collection pill + tags. `glass` gives them a dark see-through fill for sitting on a photo. */
+function Pills({ article, size, glass }: { article: ShareArticle; size: number; glass?: boolean }) {
+  const fill = glass ? "rgba(20,20,19,.55)" : "transparent";
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+    <div style={{ display: "flex", alignItems: "center", gap: Math.round(size * 0.55) }}>
       <div
         style={{
           display: "flex",
           padding: `${Math.round(size * 0.5)}px ${Math.round(size * 1.1)}px`,
           borderRadius: 999,
           border: `3px solid ${article.color}`,
+          background: fill,
           fontFamily: UI,
           fontWeight: 700,
           fontSize: size,
@@ -86,11 +91,12 @@ function Pills({ article, size }: { article: ShareArticle; size: number }) {
             display: "flex",
             padding: `${Math.round(size * 0.5)}px ${Math.round(size * 1.1)}px`,
             borderRadius: 999,
-            border: "2px solid rgba(78,147,122,.55)",
+            border: `2px solid ${glass ? "rgba(245,245,245,.4)" : "rgba(78,147,122,.55)"}`,
+            background: fill,
             fontFamily: MONO,
             fontWeight: 500,
             fontSize: size * 1.1,
-            color: soft,
+            color: glass ? PAPER : soft,
           }}
         >
           #{tag}
@@ -277,10 +283,158 @@ function LinkPreview({ article }: { article: ShareArticle }) {
 
 // ---------------------------------------------------------------------------
 
-export async function renderShareImage(article: ShareArticle, format: ShareFormat, headers?: Record<string, string>) {
-  const fonts = await fontsPromise;
-  return new ImageResponse(
-    format === "og" ? <LinkPreview article={article} /> : <Vertical article={article} format={format} />,
-    { ...SHARE_SIZES[format], fonts, headers },
+// ---------------------------------------------------------------------------
+// Image-led post styles (4:5). Classic is the feed version of Vertical above.
+// ---------------------------------------------------------------------------
+
+function Meta({ children, size = 22, color = dim }: { children: ReactNode; size?: number; color?: string }) {
+  return (
+    <div style={{ display: "flex", fontFamily: MONO, fontWeight: 500, fontSize: size, letterSpacing: "0.04em", color }}>
+      {children}
+    </div>
   );
+}
+
+/** Big Picture: mark + tags, headline, then a large framed image. */
+function PostPicture({ article }: { article: ShareArticle }) {
+  return (
+    <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", background: INK, padding: "44px 48px 40px" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <Mark size={48} />
+        <Pills article={article} size={18} />
+      </div>
+      <div style={{ display: "flex", marginTop: 30 }}>
+        <Headline article={article} size={Math.round(headlineSize(article.title, 54))} />
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          marginTop: 30,
+          flexGrow: 1,
+          minHeight: 0,
+          borderRadius: 24,
+          overflow: "hidden",
+          border: "2px solid rgba(245,245,245,.14)",
+        }}
+      >
+        <Cover src={article.image(980, 940)} />
+      </div>
+      <div style={{ display: "flex", justifyContent: "space-between", marginTop: 22 }}>
+        <Meta>By {article.author}</Meta>
+        <Meta>{siteHost.toUpperCase()}</Meta>
+      </div>
+    </div>
+  );
+}
+
+/** Lead: the image fills the top, like the homepage lead story, with a caption bar below. */
+function PostLead({ article }: { article: ShareArticle }) {
+  return (
+    <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", background: INK }}>
+      <div style={{ display: "flex", flexDirection: "column", flexGrow: 1, minHeight: 0, position: "relative" }}>
+        <Cover src={article.image(1080, 1000)} />
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 180,
+            display: "flex",
+            backgroundImage: "linear-gradient(180deg, rgba(20,20,19,.7), rgba(20,20,19,0))",
+          }}
+        />
+        <div style={{ position: "absolute", top: 40, left: 48, display: "flex" }}>
+          <Mark size={52} />
+        </div>
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", padding: "34px 48px 40px", borderTop: `6px solid ${article.color}` }}>
+        <Pills article={article} size={18} />
+        <div style={{ display: "flex", marginTop: 22 }}>
+          <Headline article={article} size={Math.round(headlineSize(article.title, 50))} />
+        </div>
+        <div style={{ display: "flex", justifyContent: "space-between", marginTop: 22 }}>
+          <Meta>By {article.author}</Meta>
+          <Meta>{siteHost.toUpperCase()}</Meta>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Full Bleed: headline block on top, the image running off the sides and bottom. */
+function PostBleed({ article }: { article: ShareArticle }) {
+  return (
+    <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", background: INK }}>
+      <div style={{ display: "flex", flexDirection: "column", padding: "44px 48px 34px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <Mark size={48} />
+          <Meta size={20}>BY {article.author.toUpperCase()}</Meta>
+        </div>
+        <div style={{ display: "flex", marginTop: 28 }}>
+          <Headline article={article} size={Math.round(headlineSize(article.title, 52))} />
+        </div>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          flexGrow: 1,
+          minHeight: 0,
+          position: "relative",
+          borderTopLeftRadius: 32,
+          borderTopRightRadius: 32,
+          overflow: "hidden",
+        }}
+      >
+        <Cover src={article.image(1080, 1060)} />
+        <div style={{ position: "absolute", top: 28, left: 28, display: "flex" }}>
+          <Pills article={article} size={18} glass />
+        </div>
+        <div
+          style={{
+            position: "absolute",
+            bottom: 28,
+            right: 28,
+            display: "flex",
+            padding: "12px 22px",
+            borderRadius: 999,
+            background: "rgba(20,20,19,.6)",
+            border: "1px solid rgba(245,245,245,.3)",
+          }}
+        >
+          <Meta size={20} color={PAPER}>
+            READ IT AT {siteHost.toUpperCase()}
+          </Meta>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+
+function layoutFor(article: ShareArticle, format: ShareFormat, style: PostStyle) {
+  if (format === "og") return <LinkPreview article={article} />;
+  if (format === "story") return <Vertical article={article} format="story" />;
+  switch (style) {
+    case "picture":
+      return <PostPicture article={article} />;
+    case "lead":
+      return <PostLead article={article} />;
+    case "bleed":
+      return <PostBleed article={article} />;
+    default:
+      return <Vertical article={article} format="feed" />;
+  }
+}
+
+export async function renderShareImage(
+  article: ShareArticle,
+  format: ShareFormat,
+  { style = DEFAULT_POST_STYLE, headers }: { style?: PostStyle; headers?: Record<string, string> } = {},
+) {
+  const fonts = await fontsPromise;
+  return new ImageResponse(layoutFor(article, format, style), { ...SHARE_SIZES[format], fonts, headers });
 }
