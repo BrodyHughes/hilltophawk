@@ -166,9 +166,42 @@
   height: 18px;
   border-radius: 50%;
   background: var(--paper);
-  transition: left .2s ease;
+  transition: left .32s cubic-bezier(.3, .7, .3, 1), background-color .32s ease;
 }
 :global(:root[data-theme="dark"]) .themeKnob { left: 22px; }
+
+/* Motion: every nav control eases between states instead of snapping. */
+.navItem,
+.tagChip,
+.allTagsBtn,
+.infoBtn,
+.themeToggle,
+.searchBtn,
+.overlayClose,
+.collectionPill,
+.tagListItem,
+.searchResult {
+  transition:
+    background-color .24s ease,
+    border-color .24s ease,
+    color .24s ease,
+    box-shadow .24s ease,
+    transform .18s cubic-bezier(.3, .7, .3, 1);
+}
+.nav { transition: background-color .32s ease, box-shadow .32s ease; }
+@media (prefers-reduced-motion: no-preference) {
+  /* A slight press on tap/click. */
+  .navItem:active,
+  .tagChip:active,
+  .allTagsBtn:active,
+  .infoBtn:active,
+  .themeToggle:active,
+  .searchBtn:active,
+  .overlayClose:active { transform: scale(.95); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .themeKnob { transition: none; }
+}
 
 /* Dark mode nav: same dark fill as the page, outlined in green, with green
    hover/active states and green borders on the controls. */
@@ -196,7 +229,9 @@
   width: 132px;
   height: 32px;
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, .24), rgba(255, 255, 255, .1));
+  /* Tint (animatable) under a fixed top-light sheen; hover changes the tint. */
+  background-color: rgba(255, 255, 255, .1);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, .14), rgba(255, 255, 255, 0));
   border: 1px solid rgba(255, 255, 255, .34);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .28), 0 2px 8px rgba(20, 20, 19, .1);
   -webkit-backdrop-filter: blur(10px) saturate(140%);
@@ -208,10 +243,9 @@
   margin-left: 8px;
   padding: 0 14px 0 13px;
   color: var(--paper);
-  transition: background .15s ease, border-color .15s ease;
 }
 .searchBtn:hover {
-  background: linear-gradient(180deg, rgba(255, 255, 255, .32), rgba(255, 255, 255, .16));
+  background-color: rgba(255, 255, 255, .2);
   border-color: rgba(255, 255, 255, .5);
 }
 .searchBtn:focus-visible { outline: 2px solid var(--paper); outline-offset: 3px; }
@@ -224,18 +258,16 @@
 
 /* Dark mode: green-tinted glass on the dark nav. */
 :global(:root[data-theme="dark"]) .searchBtn {
-  background: linear-gradient(180deg, rgba(78, 147, 122, .34), rgba(78, 147, 122, .14));
+  background-color: rgba(78, 147, 122, .14);
+  background-image: linear-gradient(180deg, rgba(78, 147, 122, .2), rgba(78, 147, 122, 0));
   border-color: rgba(78, 147, 122, .75);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 2px 8px rgba(0, 0, 0, .25);
 }
 :global(:root[data-theme="dark"]) .searchBtn:hover {
-  background: linear-gradient(180deg, rgba(78, 147, 122, .46), rgba(78, 147, 122, .22));
+  background-color: rgba(78, 147, 122, .28);
   border-color: var(--green);
 }
 :global(:root[data-theme="dark"]) .searchBtn:focus-visible { outline-color: var(--green); }
-@media (prefers-reduced-motion: reduce) {
-  .searchBtn { transition: none; }
-}
 .searchIcon {
   flex: none;
   position: relative;
@@ -265,7 +297,29 @@
   z-index: 999;
   overflow: auto;
   background: rgb(var(--bg));
-  animation: fadeIn .3s ease;
+  animation: overlayIn .3s ease both;
+}
+/* The panel fades in while its contents rise slightly into place, and fades
+   back out on close. Keyframes live here so the stylesheet's name scoping
+   can't break them (the old global "fadeIn" never matched). */
+.overlay > :not(.overlayClose):not(.blob) { animation: overlayRise .42s cubic-bezier(.2, .7, .2, 1) both; }
+.overlay.overlayClosing { animation: overlayOut .22s ease both; }
+.overlayClosing > :not(.overlayClose):not(.blob) { animation: overlaySink .22s ease both; }
+@keyframes overlayIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes overlayOut { from { opacity: 1; } to { opacity: 0; } }
+@keyframes overlayRise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes overlaySink { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(8px); } }
+/* Search screen's drifting color blobs (same motion as the globals.css
+   versions, which this stylesheet's name scoping couldn't reach). */
+@keyframes blob1 { 0% { transform: translate(-8%, -6%) scale(1); } 50% { transform: translate(10%, 12%) scale(1.28); } 100% { transform: translate(-8%, -6%) scale(1); } }
+@keyframes blob2 { 0% { transform: translate(10%, 8%) scale(1.12); } 50% { transform: translate(-12%, -10%) scale(.88); } 100% { transform: translate(10%, 8%) scale(1.12); } }
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .overlay > :not(.overlayClose):not(.blob),
+  .overlay.overlayClosing,
+  .overlayClosing > :not(.overlayClose):not(.blob),
+  .blob1,
+  .blob2 { animation: none; }
 }
 
 .overlayClose {

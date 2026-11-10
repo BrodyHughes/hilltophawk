@@ -33,7 +33,7 @@
   border-radius: 12px;
   box-shadow: 0 16px 40px rgba(20, 20, 19, .22);
   text-align: left;
-  animation: fadeIn .15s ease;
+  animation: menuIn .2s cubic-bezier(.2, .7, .2, 1) both;
 }
 
 .group { display: flex; flex-direction: column; }
@@ -100,7 +100,36 @@
   box-shadow: 0 24px 60px rgba(20, 20, 19, .35);
   text-align: left;
 }
-.panel[open] { animation: fadeIn .18s ease; }
+.panel[open] { animation: panelIn .28s cubic-bezier(.2, .7, .2, 1) both; }
+.panel[open]::backdrop { animation: backdropIn .28s ease both; }
+
+/* Local keyframes: this stylesheet scopes animation names, so the global
+   "fadeIn" never matched and the menu and panel just appeared. */
+@keyframes menuIn { from { opacity: 0; transform: translate(-50%, -4px); } to { opacity: 1; transform: translate(-50%, 0); } }
+@keyframes panelIn { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes backdropIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* Every control eases between states. */
+.button,
+.item,
+.close,
+.choice span,
+.primary,
+.secondary {
+  transition:
+    background-color .22s ease,
+    border-color .22s ease,
+    color .22s ease,
+    box-shadow .22s ease,
+    transform .16s cubic-bezier(.3, .7, .3, 1);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .button:active,
+  .close:active,
+  .choice:active span,
+  .primary:active,
+  .secondary:active { transform: scale(.96); }
+}
 .panel:focus { outline: none; } /* the panel takes focus on open, not the close button */
 .panel::backdrop {
   background: rgba(20, 20, 19, .55);
@@ -258,5 +287,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .menu,
-  .panel[open] { animation: none; }
+  .panel[open],
+  .panel[open]::backdrop { animation: none; }
 }

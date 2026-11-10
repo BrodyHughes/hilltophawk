@@ -29,6 +29,23 @@
 @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
 @keyframes bars { 0%,100%{transform:scaleY(.4)} 50%{transform:scaleY(1)} }
 
+/* Dark-mode switch: for a moment after the toggle (ThemeToggle adds this
+   class, then removes it), every color eases into the new theme instead of
+   snapping. "left" keeps the toggle's knob sliding. */
+:root.theme-switching,
+:root.theme-switching *,
+:root.theme-switching *::before,
+:root.theme-switching *::after {
+  transition:
+    background-color .38s ease,
+    color .38s ease,
+    border-color .38s ease,
+    box-shadow .38s ease,
+    fill .38s ease,
+    stroke .38s ease,
+    left .32s cubic-bezier(.3, .7, .3, 1) !important;
+}
+
 html {
   overflow-x: hidden;
   overflow-y: scroll;

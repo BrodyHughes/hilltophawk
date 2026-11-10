@@ -145,9 +145,18 @@ function ActiveNavLink({ href, children }: { href: string; children: ReactNode }
   );
 }
 
+let themeSwitchTimer: number | undefined;
+
 function ThemeToggle() {
   const toggle = () => {
     const root = document.documentElement;
+    // Fade the page's colors into the new theme instead of snapping (see
+    // .theme-switching in globals.css). Skipped for reduced motion.
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      root.classList.add("theme-switching");
+      window.clearTimeout(themeSwitchTimer);
+      themeSwitchTimer = window.setTimeout(() => root.classList.remove("theme-switching"), 450);
+    }
     const dark = root.dataset.theme !== "dark";
     if (dark) root.dataset.theme = "dark";
     else delete root.dataset.theme;
