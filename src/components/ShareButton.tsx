@@ -12,18 +12,56 @@ const FORMATS: { format: Format; label: string; note: string }[] = [
 ];
 
 /**
- * Share menu for an article. On phones the image options open the native share
- * sheet with the PNG attached (the only way a website can hand an image to
- * Instagram, Messages, etc.); elsewhere they download the image instead.
+ * Share controls for an article.
+ *
+ * - "Share" opens a menu: story/post images (share sheet on phones, download
+ *   elsewhere), copy link, and X / Facebook / LinkedIn.
+ * - "Share to Story" (phones only) skips the menu and opens the share sheet
+ *   with the story image attached. A website can't open Instagram's story
+ *   editor directly (Instagram only allows that from installed apps), so this
+ *   is the shortest path: tap it, then tap Instagram › Story.
+ *
+ * Images are fetched ahead of time because phones only allow the share sheet
+ * right after a tap; waiting on a download first can make it refuse to open.
  */
 export function ShareButton({ slug, title }: Props) {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState("");
+  const [canShareFiles, setCanShareFiles] = useState(false);
   const menuId = useId();
   const wrap = useRef<HTMLDivElement>(null);
+  const files = useRef<Partial<Record<Format, Promise<File>>>>({});
+
+  const shareText = `${title}\n\nRead on Hill Top Hawk`;
+  const articleUrl = () => `${window.location.origin}/articles/${slug}`;
+
+  function getFile(format: Format) {
+    files.current[format] ??= fetch(`/articles/${slug}/share/${format}`)
+      .then((res) => {
+        if (!res.ok) throw new Error(String(res.status));
+        return res.blob();
+      })
+      .then((blob) => new File([blob], `hth-${slug}-${format}.png`, { type: "image/png" }))
+      .catch((err) => {
+        delete files.current[format]; // let the next tap try again
+        throw err;
+      });
+    return files.current[format];
+  }
+
+  // Phones that can share images get the Share to Story button, with the
+  // story image loaded in the background so the share sheet opens instantly.
+  useEffect(() => {
+    const probe = new File([""], "probe.png", { type: "image/png" });
+    if (!navigator.canShare?.({ files: [probe] })) return;
+    setCanShareFiles(true);
+    getFile("story").catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug]);
 
   useEffect(() => {
     if (!open) return;
+    if (canShareFiles) getFile("feed").catch(() => {});
     const onDown = (e: PointerEvent) => {
       if (!wrap.current?.contains(e.target as Node)) setOpen(false);
     };
@@ -36,18 +74,13 @@ export function ShareButton({ slug, title }: Props) {
       document.removeEventListener("pointerdown", onDown);
       document.removeEventListener("keydown", onKey);
     };
-  }, [open]);
-
-  const articleUrl = () => `${window.location.origin}/articles/${slug}`;
-  const shareText = `${title}\n\nRead on Hill Top Hawk`;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, canShareFiles]);
 
   async function shareImage(format: Format) {
     setStatus("Making image…");
     try {
-      const res = await fetch(`/articles/${slug}/share/${format}`);
-      if (!res.ok) throw new Error(String(res.status));
-      const blob = await res.blob();
-      const file = new File([blob], `hth-${slug}-${format}.png`, { type: "image/png" });
+      const file = await getFile(format);
 
       if (navigator.canShare?.({ files: [file] })) {
         setStatus("");
@@ -56,7 +89,7 @@ export function ShareButton({ slug, title }: Props) {
         return;
       }
 
-      const href = URL.createObjectURL(blob);
+      const href = URL.createObjectURL(file);
       const a = document.createElement("a");
       a.href = href;
       a.download = file.name;
@@ -87,18 +120,32 @@ export function ShareButton({ slug, title }: Props) {
 
   return (
     <div className={styles.wrap} ref={wrap}>
-      <button
-        type="button"
-        className={styles.button}
-        aria-expanded={open}
-        aria-controls={menuId}
-        onClick={() => {
-          setStatus("");
-          setOpen((o) => !o);
-        }}
-      >
-        Share
-      </button>
+      <div className={styles.row}>
+        <button
+          type="button"
+          className={styles.button}
+          aria-expanded={open}
+          aria-controls={menuId}
+          onClick={() => {
+            setStatus("");
+            setOpen((o) => !o);
+          }}
+        >
+          Share
+        </button>
+        {canShareFiles && (
+          <button
+            type="button"
+            className={styles.storyButton}
+            onClick={() => {
+              setOpen(false);
+              shareImage("story");
+            }}
+          >
+            Share to Story
+          </button>
+        )}
+      </div>
 
       {open && (
         <div id={menuId} className={styles.menu}>
@@ -120,11 +167,13 @@ export function ShareButton({ slug, title }: Props) {
               </a>
             ))}
           </div>
-          <p className={styles.status} role="status" aria-live="polite">
-            {status}
-          </p>
         </div>
       )}
+
+      {/* Outside the menu so "Couldn't make the image" still shows after Share to Story. */}
+      <p className={styles.status} role="status" aria-live="polite">
+        {status}
+      </p>
     </div>
   );
 }
