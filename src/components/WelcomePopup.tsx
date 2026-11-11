@@ -108,10 +108,10 @@ export function WelcomePopup() {
         </h2>
         <div className={done ? `${styles.body} ${styles.bodyIn}` : styles.body}>
           <p>
-            Welcome to the newest iteration of my website — the fourth iteration of Hill Top Hawk. If you&rsquo;re
+            Welcome to the newest iteration of my website: the fourth iteration of Hill Top Hawk. If you&rsquo;re
             reading this, I want to give my sincerest thanks to you for giving me a moment of your time in the most
             information-dense time in human history. Whether we&rsquo;ve been well acquainted for the bulk of our lives
-            or have never spoken, to me, you&rsquo;re one of the best among us.
+            or have never spoken &mdash; to me, you&rsquo;re one of the best among us.
           </p>
           <p>
             Welcome to the <em>Middle American Freakshow</em>.
