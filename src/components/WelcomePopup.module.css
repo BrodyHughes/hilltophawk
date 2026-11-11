@@ -93,6 +93,8 @@
 
 @media (max-width: 520px) {
   .card { padding: 34px 26px 28px; border-radius: 20px; }
+  /* Scale with the screen so "Thanks For Visiting" stays on one line. */
+  .title { font-size: calc((100vw - 100px) / 9.7); }
   .body { font-size: 16px; }
 }
 
