@@ -1,5 +1,6 @@
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { WelcomePopup } from "@/components/WelcomePopup";
 import { articleHref, getActiveCollections, getActiveTags, getArticles, kickerFor } from "@/lib/content";
 
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
@@ -20,6 +21,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
       <SiteHeader collections={collections} tags={tags} searchIndex={searchIndex} />
       {children}
       <SiteFooter />
+      <WelcomePopup />
     </>
   );
 }
