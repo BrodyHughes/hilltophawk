@@ -39,6 +39,7 @@
   font-size: clamp(30px, 6.4vw, 42px);
   line-height: 1.08;
   letter-spacing: -.01em;
+  white-space: pre-line;
 }
 .titleSizer { visibility: hidden; }
 .titleTyped { position: absolute; inset: 0; }

@@ -6,7 +6,8 @@ import styles from "./WelcomePopup.module.css";
 // Shown for the 240 hours (10 days) after launch, then never again.
 const SHOW_UNTIL = Date.parse("2026-11-21T01:32:00Z");
 const SEEN_KEY = "hth-welcome-seen";
-const HEADLINE = "Thanks For Visiting Hill Top Hawk!";
+// The line break keeps "Hill Top Hawk!" together on its own line.
+const HEADLINE = "Thanks For Visiting\nHill Top Hawk!";
 
 /**
  * Launch welcome note. Appears once per visitor during the launch window, over
@@ -96,7 +97,7 @@ export function WelcomePopup() {
   return (
     <div className={closing ? `${styles.backdrop} ${styles.closing}` : styles.backdrop}>
       <div className={styles.card} role="dialog" aria-modal="true" aria-labelledby="welcome-title">
-        <h2 id="welcome-title" className={styles.title} aria-label={HEADLINE}>
+        <h2 id="welcome-title" className={styles.title} aria-label={HEADLINE.replace("\n", " ")}>
           {/* The invisible full headline holds the final size so nothing jumps while it types. */}
           <span className={styles.titleSizer} aria-hidden="true">
             {HEADLINE}
