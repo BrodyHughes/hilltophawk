@@ -49,9 +49,9 @@ export function WelcomePopup() {
           window.clearInterval(iv);
           setDone(true);
         }
-      }, 55);
+      }, 28);
       cleanup.iv = iv;
-    }, 350);
+    }, 200);
     const cleanup: { iv?: number } = {};
     return () => {
       window.clearTimeout(start);

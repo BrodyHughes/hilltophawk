@@ -87,7 +87,8 @@
 }
 .button:hover { opacity: .88; }
 .button:active { transform: scale(.97); }
-.button:focus-visible { outline: 2px solid rgb(var(--bg)); outline-offset: 3px; }
+.button:focus,
+.button:focus-visible { outline: none; }
 
 @media (max-width: 520px) {
   .card { padding: 34px 26px 28px; border-radius: 20px; }
