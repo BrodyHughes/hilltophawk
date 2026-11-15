@@ -22,6 +22,8 @@ type Props = {
   text?: string;
   /** Offer the post style choices (Classic, Big Picture, ...). Article images only. */
   styleChoices?: boolean;
+  /** Button text. Defaults to "Share". */
+  label?: string;
 };
 type Format = "feed" | "story";
 
@@ -39,7 +41,7 @@ const FORMATS: { id: Format; label: string }[] = [
  * because phones only allow the share sheet right after a tap; waiting on a
  * download first can make it refuse to open.
  */
-export function ShareButton({ slug, title, path, text, styleChoices = true }: Props) {
+export function ShareButton({ slug, title, path, text, styleChoices = true, label = "Share" }: Props) {
   const [open, setOpen] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
   const [format, setFormat] = useState<Format>("feed");
@@ -206,7 +208,7 @@ export function ShareButton({ slug, title, path, text, styleChoices = true }: Pr
           setOpen((o) => !o);
         }}
       >
-        Share
+        {label}
       </button>
 
       {open && (
