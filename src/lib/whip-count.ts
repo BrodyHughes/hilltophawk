@@ -100,7 +100,6 @@ export const SENATORS: Senator[] = [
 
   // --- No public statement ---
   { name: "Adam Schiff", state: "CA", party: "D", camp: "N", phone: "(202) 224-3841", contact: "https://www.schiff.senate.gov" },
-  { name: "Amy Klobuchar", state: "MN", party: "D", camp: "N", note: "Governor-elect; her seat goes to an appointee, who would cast this vote.", phone: "(202) 224-3244", contact: "https://www.klobuchar.senate.gov/public/index.cfm/contact" },
   { name: "John Hickenlooper", state: "CO", party: "D", camp: "N", phone: "(202) 224-5941", contact: "https://www.hickenlooper.senate.gov/contact/" },
   { name: "Michael Bennet", state: "CO", party: "D", camp: "N", phone: "(202) 224-5852", contact: "https://www.bennet.senate.gov/public/index.cfm/contact" },
   { name: "Lisa Blunt Rochester", state: "DE", party: "D", camp: "N", phone: "(202) 224-2441", contact: "https://www.bluntrochester.senate.gov/" },
