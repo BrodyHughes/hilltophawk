@@ -61,6 +61,15 @@ export const article = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "showWholeImage",
+      title: "Never crop the cover",
+      type: "boolean",
+      group: "content",
+      description:
+        "Turn on for maps, charts or images with words in them. Story cards will show the whole image instead of cropping it, and the big homepage story puts its headline under the image instead of on top of it.",
+      initialValue: false,
+    }),
+    defineField({
       name: "wideImage",
       title: "Wide Version (optional)",
       type: "image",
