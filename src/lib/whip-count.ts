@@ -17,10 +17,10 @@ export const NEEDED = 28;
 
 export const WHIP_TITLE = "Schumer vs. Van Hollen: The Whip Count";
 export const WHIP_DEK =
-  "Democrats just received a mandate to enact a bold, progressive legislative agenda that improves material conditions for the working class. Here's where senators publicly stand in the first contested leader race of Chuck Schumer's tenure.";
+  "Democrats just received a generational mandate to enact a progressive agenda that improves material conditions for the working class. Chuck Schumer has proven time and time again that he doesn't care about the will of the American people. Here is where senators stand in the first contested leader race of Schumer's tenure.";
 export const WHIP_SHARE_TEXT =
   "Schumer vs. Van Hollen: The Whip Count. Where every Senate Democrat stands, and how to call them.\n\nOn Hill Top Hawk";
-export const WHIP_CTA = "Call your senators and let them know you're tired of Chuck!";
+export const WHIP_CTA = "Represented by any of these senators? Let them know you're tired of Chuck!";
 
 /** S = backs Schumer, V = Van Hollen camp, U = undecided, N = no public statement */
 export type Camp = "S" | "V" | "U" | "N";
