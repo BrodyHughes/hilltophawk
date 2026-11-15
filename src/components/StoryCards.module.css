@@ -106,6 +106,12 @@
 /* In dark mode the black caption bar matches the page, so outline the card. */
 :global(:root[data-theme="dark"]) .leadImage { box-shadow: 0 0 0 1px rgba(245, 245, 245, .14); }
 
+/* "Never crop the cover": whole image at its own 16:9 shape, headline bar underneath. */
+.leadWhole .leadImage { aspect-ratio: auto; overflow: visible; background: none; border-radius: 0; box-shadow: none; }
+.leadWhole .leadImage > img { position: relative !important; height: auto !important; aspect-ratio: 16 / 9; border-radius: 3px 3px 0 0; }
+.leadWhole .leadCaption { position: static; border-radius: 0 0 3px 3px; }
+:global(:root[data-theme="dark"]) .leadWhole { display: block; border-radius: 3px; box-shadow: 0 0 0 1px rgba(245, 245, 245, .14); }
+
 .leadByline {
   font-family: var(--font-mono);
   font-size: 11px;

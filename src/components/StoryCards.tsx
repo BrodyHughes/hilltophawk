@@ -11,7 +11,7 @@ export function GridCard({ article, titleSize = 15 }: { article: Article; titleS
   return (
     <Link href={articleHref(article.slug)} className={`hl-trigger ${styles.grid}`} style={accent(article)}>
       <div className={`frame ${styles.gridImage}`}>
-        <Image src={article.wide.src} alt="" fill sizes="(max-width: 860px) 100vw, 360px" style={{ objectPosition: article.wide.position ?? "center" }} />
+        <Image src={article.wide.src} alt="" fill sizes="(max-width: 860px) 100vw, 360px" style={{ objectPosition: article.wide.position ?? "center", ...whole(article) }} />
       </div>
       <div className="kicker">{kickerFor(article)}</div>
       <h3 className={styles.gridTitle} style={{ fontSize: titleSize }}>
@@ -27,7 +27,7 @@ export function TallCard({ article }: { article: Article }) {
   return (
     <Link href={articleHref(article.slug)} className={`hl-trigger ${styles.tall}`} style={accent(article)} draggable={false}>
       <div className={`frame ${styles.tallImage}`}>
-        <Image src={article.image} alt="" fill sizes="230px" draggable={false} style={{ objectPosition: article.imagePosition ?? "center" }} />
+        <Image src={article.image} alt="" fill sizes="230px" draggable={false} style={{ objectPosition: article.imagePosition ?? "center", ...whole(article) }} />
       </div>
       <div className="kicker" style={{ fontSize: 10.5 }}>{kickerFor(article)}</div>
       <h3 className={styles.gridTitle} style={{ margin: 0 }}>
@@ -42,7 +42,7 @@ export function RailCard({ article }: { article: Article }) {
   return (
     <Link href={articleHref(article.slug)} className={`hl-trigger ${styles.rail}`} style={accent(article)}>
       <div className={styles.railThumb}>
-        <Image src={article.square.src} alt="" fill sizes="96px" style={{ objectPosition: article.square.position ?? "center" }} />
+        <Image src={article.square.src} alt="" fill sizes="96px" style={{ objectPosition: article.square.position ?? "center", ...whole(article) }} />
       </div>
       <div style={{ minWidth: 0 }}>
         <div className="kicker" style={{ fontSize: 11, letterSpacing: ".13em" }}>{kickerFor(article)}</div>
@@ -60,7 +60,7 @@ export function SecondaryCard({ article }: { article: Article }) {
   return (
     <Link href={articleHref(article.slug)} className={`hl-trigger ${styles.rail} ${styles.secondary}`} style={accent(article)}>
       <div className={`frame ${styles.secondaryImage}`}>
-        <Image src={article.wide.src} alt="" fill sizes="(max-width: 860px) 100vw, 420px" style={{ objectPosition: article.wide.position ?? "center" }} />
+        <Image src={article.wide.src} alt="" fill sizes="(max-width: 860px) 100vw, 420px" style={{ objectPosition: article.wide.position ?? "center", ...whole(article) }} />
       </div>
       <div className="kicker" style={{ fontSize: 11, letterSpacing: ".13em", marginBottom: 8 }}>{kickerFor(article)}</div>
       <h2 className={styles.secondaryTitle}>
@@ -72,9 +72,14 @@ export function SecondaryCard({ article }: { article: Article }) {
 }
 
 /** Home page lead story: big image with a dark caption bar over the bottom. */
+/** Covers marked "Never crop" letterbox on the ink background instead of cropping. */
+function whole(article: Article): CSSProperties {
+  return article.wholeImage ? { objectFit: "contain", background: "var(--ink)" } : {};
+}
+
 export function LeadCard({ article }: { article: Article }) {
   return (
-    <Link href={articleHref(article.slug)} className={`hl-trigger ${styles.lead}`} style={accent(article)}>
+    <Link href={articleHref(article.slug)} className={`hl-trigger ${styles.lead} ${article.wholeImage ? styles.leadWhole : ""}`} style={accent(article)}>
       <div className={styles.leadImage}>
         <Image
           src={article.wide.src}
@@ -82,7 +87,7 @@ export function LeadCard({ article }: { article: Article }) {
           fill
           priority
           sizes="(max-width: 860px) 100vw, 700px"
-          style={{ objectFit: "cover", objectPosition: article.wide.position ?? "center" }}
+          style={{ objectFit: "cover", objectPosition: article.wide.position ?? "center", ...whole(article) }}
         />
         <div className={styles.leadCaption}>
           <div className="kicker" style={{ fontSize: 11, letterSpacing: ".13em" }}>{kickerFor(article)}</div>
@@ -108,7 +113,7 @@ export function FeaturedCard({ article }: { article: Article }) {
           fill
           priority
           sizes="(max-width: 860px) 100vw, 640px"
-          style={{ objectPosition: article.wide.position ?? "center" }}
+          style={{ objectPosition: article.wide.position ?? "center", ...whole(article) }}
         />
       </div>
       <div>
