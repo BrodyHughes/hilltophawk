@@ -13,7 +13,16 @@ function browserCanShareFiles() {
 }
 const noSubscribe = () => () => {};
 
-type Props = { slug: string; title: string };
+type Props = {
+  slug: string;
+  title: string;
+  /** Page this button shares. Images come from `${path}/share/feed|story`. Defaults to the article page. */
+  path?: string;
+  /** Text that goes with the share. Defaults to the title + "Read on Hill Top Hawk". */
+  text?: string;
+  /** Offer the post style choices (Classic, Big Picture, ...). Article images only. */
+  styleChoices?: boolean;
+};
 type Format = "feed" | "story";
 
 const FORMATS: { id: Format; label: string }[] = [
@@ -30,7 +39,7 @@ const FORMATS: { id: Format; label: string }[] = [
  * because phones only allow the share sheet right after a tap; waiting on a
  * download first can make it refuse to open.
  */
-export function ShareButton({ slug, title }: Props) {
+export function ShareButton({ slug, title, path, text, styleChoices = true }: Props) {
   const [open, setOpen] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
   const [format, setFormat] = useState<Format>("feed");
@@ -47,8 +56,9 @@ export function ShareButton({ slug, title }: Props) {
   const shareBtn = useRef<HTMLButtonElement>(null);
   const files = useRef(new Map<string, Promise<File>>());
 
-  const shareText = `${title}\n\nRead on Hill Top Hawk`;
-  const articleUrl = () => `${window.location.origin}/articles/${slug}`;
+  const pagePath = path ?? `/articles/${slug}`;
+  const shareText = text ?? `${title}\n\nRead on Hill Top Hawk`;
+  const articleUrl = () => `${window.location.origin}${pagePath}`;
 
   const keyFor = (f: Format, s: PostStyle) => (f === "story" ? "story" : `feed-${s}`);
   const currentKey = keyFor(format, postStyle);
@@ -57,8 +67,8 @@ export function ShareButton({ slug, title }: Props) {
     let file = files.current.get(key);
     if (!file) {
       const [f, s] = key.split("-");
-      const query = f === "feed" && s !== DEFAULT_POST_STYLE ? `?style=${s}` : "";
-      file = fetch(`/articles/${slug}/share/${f}${query}`)
+      const query = styleChoices && f === "feed" && s !== DEFAULT_POST_STYLE ? `?style=${s}` : "";
+      file = fetch(`${pagePath}/share/${f}${query}`)
         .then((res) => {
           if (!res.ok) throw new Error(String(res.status));
           return res.blob();
@@ -253,7 +263,7 @@ export function ShareButton({ slug, title }: Props) {
           ))}
         </fieldset>
 
-        {format === "feed" && (
+        {format === "feed" && styleChoices && (
           <fieldset className={styles.choices}>
             <legend className={styles.srOnly}>Style</legend>
             {POST_STYLES.map((s) => (

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ContactForm } from "@/components/ContactForm";
 import { DragRow } from "@/components/DragRow";
+import { WhipCountHome } from "@/components/WhipCountHome";
 import { GridCard, LeadCard, RailCard, SecondaryCard, TallCard } from "@/components/StoryCards";
 import { getArticles, getEpisodes } from "@/lib/content";
 import styles from "./home.module.css";
@@ -53,6 +54,9 @@ export default async function Home() {
           </aside>
         )}
       </div>
+
+      {/* Senate leader race tracker; removes itself after the Dec. 1 vote. */}
+      <WhipCountHome />
 
       {more.length >= 3 && (
         <section className="container" style={{ marginTop: 52 }}>
