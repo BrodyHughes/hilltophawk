@@ -8,6 +8,7 @@ import { Clock } from "./Clock";
 import { DragRow } from "./DragRow";
 import { Masthead } from "./Masthead";
 import { Overlay } from "./Overlay";
+import { ShareButton } from "./ShareButton";
 import styles from "./SiteHeader.module.css";
 
 type SearchEntry = { title: string; kicker: string; href: string };
@@ -85,6 +86,14 @@ export function SiteHeader({
             </p>
             <p className={styles.overlayText}>The Hawk, as it&rsquo;s colloquially known, is carrying the flame every day.</p>
             <p className={styles.overlayText}>Read Hill Top Hawk, thanks.</p>
+            <ShareButton
+              slug="hill-top-hawk"
+              title="Hill Top Hawk"
+              path=""
+              text="Hill Top Hawk. Welcome to the Middle American Freakshow."
+              styleChoices={false}
+              label="Share Hill Top Hawk"
+            />
           </div>
         </Overlay>
       )}
