@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { PortableText, type PortableTextBlock, type PortableTextComponents } from "next-sanity";
+import { XPost } from "@/components/XPost";
+import { parseEmbed } from "@/lib/embeds";
 import { urlFor } from "@/sanity/lib/image";
 import styles from "./ArticleBody.module.css";
 
@@ -10,6 +12,39 @@ type InlineImage = {
 };
 
 type PullQuote = { text: string; attribution?: string };
+
+type Embed = { url?: string; caption?: string };
+
+function EmbedBlock({ value }: { value: Embed }) {
+  if (!value.url) return null;
+  const e = parseEmbed(value.url);
+  let inner;
+  if (e.kind === "x") inner = <XPost url={e.url} />;
+  else if (e.kind === "tiktok")
+    inner = (
+      <div className={styles.tiktok}>
+        <iframe src={e.src} title="TikTok video" loading="lazy" allow="encrypted-media; fullscreen; picture-in-picture" allowFullScreen />
+      </div>
+    );
+  else if (e.kind === "video")
+    inner = (
+      <div className={styles.video}>
+        <iframe src={e.src} title={value.caption ?? "Video"} loading="lazy" allow="encrypted-media; fullscreen; picture-in-picture" allowFullScreen />
+      </div>
+    );
+  else
+    inner = (
+      <a href={e.url} className={styles.link} target="_blank" rel="noopener noreferrer">
+        {e.url}
+      </a>
+    );
+  return (
+    <figure className={styles.embed}>
+      {inner}
+      {value.caption && <figcaption className={styles.caption}>{value.caption}</figcaption>}
+    </figure>
+  );
+}
 
 const components: PortableTextComponents = {
   block: {
@@ -45,6 +80,7 @@ const components: PortableTextComponents = {
         </figure>
       );
     },
+    embed: EmbedBlock,
     pullQuote: ({ value }: { value: PullQuote }) => (
       <figure className={styles.pullQuote}>
         <blockquote>“{value.text}”</blockquote>

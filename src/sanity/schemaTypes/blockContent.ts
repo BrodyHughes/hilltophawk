@@ -1,4 +1,4 @@
-import { BlockquoteIcon, ImageIcon } from "@sanity/icons";
+import { BlockquoteIcon, ImageIcon, PlayIcon } from "@sanity/icons";
 import { defineArrayMember, defineField, defineType } from "sanity";
 
 /** Rich text for article bodies. */
@@ -56,6 +56,27 @@ export const blockContent = defineType({
         }),
         defineField({ name: "caption", type: "string" }),
       ],
+    }),
+    defineArrayMember({
+      name: "embed",
+      title: "Embed (video or post)",
+      type: "object",
+      icon: PlayIcon,
+      fields: [
+        defineField({
+          name: "url",
+          title: "Link",
+          type: "url",
+          description:
+            "Paste the link to a post on X, a TikTok, a YouTube or Vimeo video, or a C-SPAN / JW Player clip. Just the link, not the embed code.",
+          validation: (rule) => rule.required().uri({ scheme: ["https"] }),
+        }),
+        defineField({ name: "caption", type: "string", description: "Optional. Shows in small type under the embed." }),
+      ],
+      preview: {
+        select: { title: "url", subtitle: "caption" },
+        prepare: ({ title, subtitle }) => ({ title: title ?? "Embed", subtitle }),
+      },
     }),
     defineArrayMember({
       name: "pullQuote",
