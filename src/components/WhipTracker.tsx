@@ -134,7 +134,7 @@ export function WhipTracker() {
           <thead>
             <tr>
               {sortHead("name", "Senator")}
-              {sortHead("state", "State")}
+              {sortHead("state", "State", styles.hideSm)}
               {sortHead("camp", "Position")}
               {sortHead("date", "As of", styles.hideSm)}
               <th className={styles.hideSm}>Note</th>
@@ -145,10 +145,11 @@ export function WhipTracker() {
             {rows.map((s) => (
               <tr key={s.name} id={rowId(s)} className={highlight === s.name ? styles.hl : undefined}>
                 <td>
-                  <span className={styles.who}>{s.name}</span>
+                  <span className={styles.who}>{s.name}</span>{" "}
+                  <span className={`${styles.mono} ${styles.showSm}`}>{s.party}-{s.state}</span>
                   {s.elect && <span className={styles.mono}> &middot; sen.-elect</span>}
                 </td>
-                <td className={styles.mono}>{s.party}-{s.state}</td>
+                <td className={`${styles.mono} ${styles.hideSm}`}>{s.party}-{s.state}</td>
                 <td>
                   <span className={styles.pill} data-camp={s.camp}>{position(s)}</span>
                   {s.flag && <span className={styles.flag}>&#9873; {s.flag}</span>}
