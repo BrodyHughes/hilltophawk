@@ -48,11 +48,14 @@ const fontsPromise = Promise.all([
 
 const siteHost = siteUrl.host;
 
+/** Fonts for next/og, shared with other share images (see whip-count-card.tsx). */
+export const shareFonts = () => fontsPromise;
+
 // ---------------------------------------------------------------------------
 // Pieces
 // ---------------------------------------------------------------------------
 
-function Mark({ size }: { size: number }) {
+export function Mark({ size }: { size: number }) {
   return (
     <div style={{ display: "flex", fontFamily: DISPLAY, fontWeight: 900, fontSize: size, lineHeight: 1, letterSpacing: "-0.015em", color: PAPER }}>
       <span>hth</span>
