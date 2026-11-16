@@ -9,7 +9,7 @@
 //
 // This file imports nothing from React or Next, so the browser can use it too.
 
-export const UPDATED = "Nov. 14, 2026";
+export const UPDATED = "Nov. 16, 2026";
 export const VOTE_DATE_LABEL = "Dec. 1";
 /** End of vote day, Central time (midnight Dec. 2 CT). */
 export const EXPIRES_AT = Date.parse("2026-12-02T06:00:00Z");
@@ -46,7 +46,7 @@ export type Senator = {
 
 export const SENATORS: Senator[] = [
   // --- Backs Schumer ---
-  { name: "Chuck Schumer", state: "NY", party: "D", camp: "S", date: "2026-11-04", note: "Incumbent leader since 2017. Says he's “confident” he'll be reelected.", phone: "(202) 224-6542", contact: "https://www.schumer.senate.gov/contact/email-chuck" },
+  { name: "Chuck Schumer", state: "NY", party: "D", camp: "S", date: "2026-11-04", note: "Incumbent leader since 2017. Says he has “the votes to continue serving as Democratic Leader.” Allies predict 40+.", phone: "(202) 224-6542", contact: "https://www.schumer.senate.gov/contact/email-chuck" },
   { name: "Tim Kaine", state: "VA", party: "D", camp: "S", date: "2026-06-28", note: "Committed early, back in June.", phone: "(202) 224-4024", contact: "https://www.kaine.senate.gov/contact" },
   { name: "Sheldon Whitehouse", state: "RI", party: "D", camp: "S", date: "2026-11-06", phone: "(202) 224-2921", contact: "https://www.whitehouse.senate.gov/contact/email-sheldon" },
   { name: "Brian Schatz", state: "HI", party: "D", camp: "S", date: "2026-11-09", note: "Running unopposed for whip. Once floated as a Schumer successor himself.", phone: "(202) 224-3934", contact: "https://www.schatz.senate.gov/contact" },
@@ -64,7 +64,7 @@ export const SENATORS: Senator[] = [
   { name: "Mark Kelly", state: "AZ", party: "D", camp: "S", date: "2026-11-13", note: "Backs Schumer but says Democrats need to do things differently.", phone: "(202) 224-2235", contact: "https://www.kelly.senate.gov/contact/contact-form/" },
 
   // --- Van Hollen camp ---
-  { name: "Chris Van Hollen", state: "MD", party: "D", camp: "V", sub: "endorse", date: "2026-11-12", note: "The challenger. Announced Nov. 12 that “we need new leadership.”", phone: "(202) 224-4654", contact: "https://www.vanhollen.senate.gov/contact/email" },
+  { name: "Chris Van Hollen", state: "MD", party: "D", camp: "V", sub: "endorse", date: "2026-11-12", note: "The challenger. Announced Nov. 12 that “we need new leadership.” Claimed “about 15 and growing” on Nov. 15 but hasn't named them.", phone: "(202) 224-4654", contact: "https://www.vanhollen.senate.gov/contact/email" },
   { name: "Bernie Sanders", state: "VT", party: "I", camp: "V", sub: "endorse", date: "2026-11-12", note: "Firmly against Schumer; backs Van Hollen.", phone: "(202) 224-5141", contact: "https://www.sanders.senate.gov/contact/" },
   { name: "Abdul El-Sayed", state: "MI", party: "D", camp: "V", sub: "endorse", date: "2026-11-12", elect: true, note: "Campaigned on making Van Hollen majority leader." },
   { name: "Peggy Flanagan", state: "MN", party: "D", camp: "V", sub: "endorse", date: "2026-11-13", elect: true, note: "Said Democrats need a progressive champion and Schumer isn't it.", flag: "Earlier AP report (Nov. 10) called her uncommitted" },
