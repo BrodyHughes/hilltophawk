@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { type Article, articleHref, colorFor, kickerFor } from "@/lib/content";
 import styles from "./StoryCards.module.css";
+import { ThemedImage } from "./ThemedImage";
 
 const accent = (a: Article) => ({ "--accent": colorFor(a) }) as CSSProperties;
 
@@ -11,7 +11,7 @@ export function GridCard({ article, titleSize = 15 }: { article: Article; titleS
   return (
     <Link href={articleHref(article.slug)} className={`hl-trigger ${styles.grid}`} style={accent(article)}>
       <div className={`frame ${styles.gridImage}`}>
-        <Image src={article.wide.src} alt="" fill sizes="(max-width: 860px) 100vw, 360px" style={{ objectPosition: article.wide.position ?? "center", ...whole(article) }} />
+        <ThemedImage light={article.light} src={article.wide.src} alt="" fill sizes="(max-width: 860px) 100vw, 360px" style={{ objectPosition: article.wide.position ?? "center", ...whole(article) }} />
       </div>
       <div className="kicker">{kickerFor(article)}</div>
       <h3 className={styles.gridTitle} style={{ fontSize: titleSize }}>
@@ -27,7 +27,7 @@ export function TallCard({ article }: { article: Article }) {
   return (
     <Link href={articleHref(article.slug)} className={`hl-trigger ${styles.tall}`} style={accent(article)} draggable={false}>
       <div className={`frame ${styles.tallImage}`}>
-        <Image src={article.image} alt="" fill sizes="230px" draggable={false} style={{ objectPosition: article.imagePosition ?? "center", ...whole(article) }} />
+        <ThemedImage light={article.light} src={article.image} alt="" fill sizes="230px" draggable={false} style={{ objectPosition: article.imagePosition ?? "center", ...whole(article) }} />
       </div>
       <div className="kicker" style={{ fontSize: 10.5 }}>{kickerFor(article)}</div>
       <h3 className={styles.gridTitle} style={{ margin: 0 }}>
@@ -42,7 +42,7 @@ export function RailCard({ article }: { article: Article }) {
   return (
     <Link href={articleHref(article.slug)} className={`hl-trigger ${styles.rail}`} style={accent(article)}>
       <div className={styles.railThumb}>
-        <Image src={article.square.src} alt="" fill sizes="96px" style={{ objectPosition: article.square.position ?? "center", ...whole(article) }} />
+        <ThemedImage light={article.light} src={article.square.src} alt="" fill sizes="96px" style={{ objectPosition: article.square.position ?? "center", ...whole(article) }} />
       </div>
       <div style={{ minWidth: 0 }}>
         <div className="kicker" style={{ fontSize: 11, letterSpacing: ".13em" }}>{kickerFor(article)}</div>
@@ -60,7 +60,7 @@ export function SecondaryCard({ article }: { article: Article }) {
   return (
     <Link href={articleHref(article.slug)} className={`hl-trigger ${styles.rail} ${styles.secondary}`} style={accent(article)}>
       <div className={`frame ${styles.secondaryImage}`}>
-        <Image src={article.wide.src} alt="" fill sizes="(max-width: 860px) 100vw, 420px" style={{ objectPosition: article.wide.position ?? "center", ...whole(article) }} />
+        <ThemedImage light={article.light} src={article.wide.src} alt="" fill sizes="(max-width: 860px) 100vw, 420px" style={{ objectPosition: article.wide.position ?? "center", ...whole(article) }} />
       </div>
       <div className="kicker" style={{ fontSize: 11, letterSpacing: ".13em", marginBottom: 8 }}>{kickerFor(article)}</div>
       <h2 className={styles.secondaryTitle}>
@@ -81,7 +81,7 @@ export function LeadCard({ article }: { article: Article }) {
   return (
     <Link href={articleHref(article.slug)} className={`hl-trigger ${styles.lead} ${article.wholeImage ? styles.leadWhole : ""}`} style={accent(article)}>
       <div className={styles.leadImage}>
-        <Image
+        <ThemedImage light={article.light}
           src={article.wide.src}
           alt=""
           fill
@@ -107,7 +107,7 @@ export function FeaturedCard({ article }: { article: Article }) {
   return (
     <Link href={articleHref(article.slug)} className={`hl-trigger ${styles.featured}`} style={accent(article)}>
       <div className={`frame ${styles.featuredImage}`}>
-        <Image
+        <ThemedImage light={article.light}
           src={article.wide.src}
           alt=""
           fill

@@ -40,6 +40,8 @@ export type Article = {
   /** Square version for thumbnails; falls back to the cover. */
   square: Picture;
   layout: string;
+  /** Optional cover shown instead of the others when the site is in light mode. */
+  light?: Picture;
   /** Show the whole cover on cards (maps, charts) instead of cropping it. */
   wholeImage: boolean;
 };
@@ -71,10 +73,11 @@ type SanityImage = {
   alt?: string;
 };
 
-type RawArticle = Omit<Article, "image" | "imageAlt" | "imagePosition" | "wide" | "square" | "tags"> & {
+type RawArticle = Omit<Article, "image" | "imageAlt" | "imagePosition" | "wide" | "square" | "light" | "tags"> & {
   image?: SanityImage;
   wideImage?: SanityImage;
   squareImage?: SanityImage;
+  lightImage?: SanityImage;
   tags: (Tag | null)[];
 };
 
@@ -90,6 +93,7 @@ const ARTICLE_FIELDS = /* groq */ `
   image,
   wideImage,
   squareImage,
+  lightImage,
   "layout": coalesce(layout, "standard"),
   "wholeImage": coalesce(showWholeImage, false)
 `;
@@ -136,7 +140,7 @@ function picture(version: SanityImage | undefined, cover: SanityImage | undefine
   return { src: imageUrl(img), position: hotspotPosition(img) };
 }
 
-function toArticle({ image, wideImage, squareImage, tags, ...rest }: RawArticle): Article {
+function toArticle({ image, wideImage, squareImage, lightImage, tags, ...rest }: RawArticle): Article {
   return {
     ...rest,
     tags: tags.filter((t): t is Tag => Boolean(t?.slug)),
@@ -145,6 +149,7 @@ function toArticle({ image, wideImage, squareImage, tags, ...rest }: RawArticle)
     imagePosition: hotspotPosition(image),
     wide: picture(wideImage, image),
     square: picture(squareImage, image),
+    light: lightImage?.asset ? picture(lightImage, undefined) : undefined,
   };
 }
 

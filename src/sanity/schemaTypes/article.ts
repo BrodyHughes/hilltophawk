@@ -89,6 +89,16 @@ export const article = defineType({
       options: { hotspot: true },
     }),
     defineField({
+      name: "lightImage",
+      title: "Light Mode Version (optional)",
+      type: "image",
+      group: "content",
+      fieldset: "imageVersions",
+      description:
+        "A version of the cover for readers who have the site in light mode, e.g. a title card with a light background. Shown everywhere the cover appears when light mode is on. Leave empty to use the same cover in both modes.",
+      options: { hotspot: true },
+    }),
+    defineField({
       name: "body",
       type: "blockContent",
       group: "content",

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { ThemedImage } from "@/components/ThemedImage";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense, type CSSProperties } from "react";
@@ -66,7 +66,7 @@ async function ArticleContent({ params }: Pick<PageProps<"/articles/[slug]">, "p
       </header>
 
       <div className={`frame ${styles.hero}`}>
-        <Image
+        <ThemedImage light={article.light}
           src={article.wide.src}
           alt={article.imageAlt}
           fill

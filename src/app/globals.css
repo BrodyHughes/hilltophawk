@@ -17,6 +17,10 @@
   --font-mono: var(--font-source-code-pro), ui-monospace, monospace;
 }
 
+/* Covers with a light-mode version (ThemedImage): show the one that matches. */
+:root:not([data-theme="dark"]) .theme-dark-img,
+:root[data-theme="dark"] .theme-light-img { display: none !important; }
+
 :root[data-theme="dark"] {
   --fg: 245, 245, 245;
   --bg: 20, 20, 19;
