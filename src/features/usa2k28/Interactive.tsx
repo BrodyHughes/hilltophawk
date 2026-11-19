@@ -13,8 +13,8 @@ export function Countdown() {
   const days = useSyncExternalStore(noSubscribe, daysLeft, () => PUBLISH_DAYS);
   return (
     <>
-      <b className={styles.count}>{days.toLocaleString("en-US")} days</b> until the 2028 presidential election, just about{" "}
-      <b className={styles.count}>{(days * 24).toLocaleString("en-US")} hours</b> (or so)
+      <b className={styles.count}>{days.toLocaleString("en-US")} days</b>, just about{" "}
+      <b className={styles.count}>{(days * 24).toLocaleString("en-US")} hours</b> (or so),
     </>
   );
 }
