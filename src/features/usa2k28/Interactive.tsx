@@ -4,6 +4,8 @@ import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { ATTRS, type AttrKey, CANDIDATES, ELECTION_DAY, PUBLISH_DAYS } from "./data";
 import styles from "./usa2k28.module.css";
 
+const STAR_PATH = "M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z";
+
 const DAY = 86_400_000;
 const noSubscribe = () => () => {};
 const daysLeft = () => Math.max(0, Math.ceil((Date.parse(ELECTION_DAY) - Date.now()) / DAY));
@@ -75,6 +77,12 @@ export function Leaderboard() {
                     <span className={styles.rowRank}>{i + 1}</span>
                     <span className={styles.rowName}>{c.first} {c.last}</span>
                     <span className={`${styles.partyChip} ${styles[c.party]}`}>{c.party}</span>
+                    {c.endorsed && (
+                      <span className={styles.endorsedChip}>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d={STAR_PATH} /></svg>
+                        HTH endorsed
+                      </span>
+                    )}
                   </button>
                 </th>
                 {cols.map((col) => {
