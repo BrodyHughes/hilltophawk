@@ -111,7 +111,7 @@ export const GUIDE: { key: AttrKey | "ovr"; label: string; text: string[] }[] = 
     key: "cake",
     label: "Cake Index",
     text: [
-      "This one’s my favorite! As much as the Neera Tandens of the world will try to feign ignorance of the messaging strategy that won these midterms for Democrats, politicians and their internal polls know the truth. Across the board, whether it was Talarico, Hamilton, Andrews, El-Sayed, Colom, etc., this campaign was the same up and down the ballot. I watched candidates whom Neera would claim as “Normie Democrats” trot around their states and districts parroting the rhetoric Bernie Sanders popularized in 2016. There is a populist rage infecting the hearts and souls of the American people. The Cake Index captures the ability of a candidate to promise a populist agenda that addresses material concerns in a way voters will believe. Most of these hopefuls will come around to this form of messaging, but whether because of their record or their general sliminess, they won’t be believed. Let us eat cake!",
+      "This one’s my favorite! As much as the Neera Tandens of the world will try to feign ignorance of the messaging strategy that won these midterms for Democrats, politicians and their internal polls know the truth. Across the board, whether it was Talarico, Hamilton, Andrews, El-Sayed, Colom, etc., this campaign was about up and down. I watched candidates whom Neera would claim as “Normie Democrats” trot around their states and districts parroting the rhetoric Bernie Sanders popularized in 2016. There is a populist rage infecting the hearts and souls of the American people. The Cake Index captures the ability of a candidate to promise a populist agenda that addresses material concerns in a way voters will believe. Most of these hopefuls will come around to this form of messaging, but whether because of their record or their general sliminess, they won’t be believed. Let us eat cake!",
     ],
   },
 ];
@@ -168,7 +168,7 @@ export const CANDIDATES: Candidate[] = [
     badges: ["Podcast Circuit", "Debate Closer"],
     photo: "/images/usa2k28/cruz.jpg",
     take: [
-      "The senator from Texas has been a stalwart in right-leaning media for several years at this point, and he has a popular podcast of his own that caters to the “normal” wing of the GOP (those quotes are doing some heavy lifting). He has the political chops to run away from the Trump regime in a believable enough way, but his neocon tendencies will not be popular with today’s electorate, even if the packaging feels less extreme to some. Additionally, I don’t think he’ll run now. If he believes he has any chance of winning (I can’t speak to what the man thinks), it would mean abandoning the only Senate seat Republicans hold in Texas.",
+      "The senator from Texas has been a stalwart in right-leaning media for several years at this point, and he has a popular podcast of his own that caters to the “normal” wing of the GOP (those quotes are doing some heavy lifting). He has the political chops to run away from the Trump regime in a believable enough way, but his neocon tendencies will not be popular with today’s electorate, even if the packaging feels less extreme to some. Additionally, I don’t think he’ll run now. If he believes he has any chance of winning (I can’t speak to what the man thinks), it would mean that he’d be abandoning the only statewide office held by Republicans in the state of Texas.",
     ],
     comp: {
       player: "James Harden",
