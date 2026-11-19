@@ -155,7 +155,12 @@ export const article = defineType({
       type: "string",
       group: "details",
       description: "How the article page looks. Custom designs get added here as they're built.",
-      options: { list: [{ title: "Standard", value: "standard" }] },
+      options: {
+        list: [
+          { title: "Standard", value: "standard" },
+          { title: "USA 2K28 (interactive candidate rankings)", value: "usa2k28" },
+        ],
+      },
       initialValue: "standard",
     }),
   ],

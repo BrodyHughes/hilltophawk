@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { Suspense, type CSSProperties } from "react";
 import { ArticleBody } from "@/components/ArticleBody";
 import { ShareButton } from "@/components/ShareButton";
+import { Usa2k28Article } from "@/features/usa2k28/Usa2k28Article";
 import { atLeastOne, getArticle, getArticles, getCollection, kickerFor, colorFor, tagHref } from "@/lib/content";
 import styles from "./article.module.css";
 
@@ -41,6 +42,8 @@ async function ArticleContent({ params }: Pick<PageProps<"/articles/[slug]">, "p
   const { slug } = await params;
   const article = await getArticle(slug);
   if (!article) notFound();
+
+  if (article.layout === "usa2k28") return <Usa2k28Article article={article} />;
 
   const collection = getCollection(article.collection);
   const date = new Date(`${article.date}T12:00:00`).toLocaleDateString("en-US", {
