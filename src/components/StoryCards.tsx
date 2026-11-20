@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { type Article, articleHref, colorFor, kickerFor } from "@/lib/content";
+import { NewBadge } from "./NewBadge";
 import styles from "./StoryCards.module.css";
 
 const accent = (a: Article) => ({ "--accent": colorFor(a) }) as CSSProperties;
@@ -12,6 +13,7 @@ export function GridCard({ article, titleSize = 15 }: { article: Article; titleS
     <Link href={articleHref(article.slug)} className={`hl-trigger ${styles.grid}`} style={accent(article)}>
       <div className={`frame ${styles.gridImage}`}>
         <Image src={article.wide.src} alt="" fill sizes="(max-width: 860px) 100vw, 360px" style={{ objectPosition: article.wide.position ?? "center", ...whole(article) }} />
+        <NewBadge date={article.date} />
       </div>
       <div className="kicker">{kickerFor(article)}</div>
       <h3 className={styles.gridTitle} style={{ fontSize: titleSize }}>
@@ -28,6 +30,7 @@ export function TallCard({ article }: { article: Article }) {
     <Link href={articleHref(article.slug)} className={`hl-trigger ${styles.tall}`} style={accent(article)} draggable={false}>
       <div className={`frame ${styles.tallImage}`}>
         <Image src={article.image} alt="" fill sizes="230px" draggable={false} style={{ objectPosition: article.imagePosition ?? "center", ...whole(article) }} />
+        <NewBadge date={article.date} />
       </div>
       <div className="kicker" style={{ fontSize: 10.5 }}>{kickerFor(article)}</div>
       <h3 className={styles.gridTitle} style={{ margin: 0 }}>
@@ -43,6 +46,7 @@ export function RailCard({ article }: { article: Article }) {
     <Link href={articleHref(article.slug)} className={`hl-trigger ${styles.rail}`} style={accent(article)}>
       <div className={styles.railThumb}>
         <Image src={article.square.src} alt="" fill sizes="96px" style={{ objectPosition: article.square.position ?? "center", ...whole(article) }} />
+        <NewBadge date={article.date} />
       </div>
       <div style={{ minWidth: 0 }}>
         <div className="kicker" style={{ fontSize: 11, letterSpacing: ".13em" }}>{kickerFor(article)}</div>
@@ -61,6 +65,7 @@ export function SecondaryCard({ article }: { article: Article }) {
     <Link href={articleHref(article.slug)} className={`hl-trigger ${styles.rail} ${styles.secondary}`} style={accent(article)}>
       <div className={`frame ${styles.secondaryImage}`}>
         <Image src={article.wide.src} alt="" fill sizes="(max-width: 860px) 100vw, 420px" style={{ objectPosition: article.wide.position ?? "center", ...whole(article) }} />
+        <NewBadge date={article.date} size="lg" />
       </div>
       <div className="kicker" style={{ fontSize: 11, letterSpacing: ".13em", marginBottom: 8 }}>{kickerFor(article)}</div>
       <h2 className={styles.secondaryTitle}>
@@ -89,6 +94,7 @@ export function LeadCard({ article }: { article: Article }) {
           sizes="(max-width: 860px) 100vw, 700px"
           style={{ objectFit: "cover", objectPosition: article.wide.position ?? "center", ...whole(article) }}
         />
+        <NewBadge date={article.date} size="lg" />
         <div className={styles.leadCaption}>
           <div className="kicker" style={{ fontSize: 11, letterSpacing: ".13em" }}>{kickerFor(article)}</div>
           <h1 className={styles.leadTitle}>
@@ -115,6 +121,7 @@ export function FeaturedCard({ article }: { article: Article }) {
           sizes="(max-width: 860px) 100vw, 640px"
           style={{ objectPosition: article.wide.position ?? "center", ...whole(article) }}
         />
+        <NewBadge date={article.date} size="lg" />
       </div>
       <div>
         <div className="kicker" style={{ fontSize: 11, letterSpacing: ".13em", marginBottom: 10 }}>Featured</div>

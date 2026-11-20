@@ -12,11 +12,12 @@ import styles from "./home.module.css";
 export default async function Home() {
   const [articles, episodes] = await Promise.all([getArticles(), getEpisodes()]);
 
-  const [lead, ...rest] = articles;
+  // Newest story is the lead; the next newest gets the large card at the top of
+  // the right rail, so the two big slots always hold the two latest pieces.
+  const [lead, secondary, ...rest] = articles;
   const rail = rest.slice(0, 3);
-  const secondary = rest[3];
-  const latest = rest.slice(4, 7);
-  const more = rest.slice(7);
+  const latest = rest.slice(3, 6);
+  const more = rest.slice(6);
 
   if (!lead) {
     return (
@@ -45,12 +46,12 @@ export default async function Home() {
           )}
         </div>
 
-        {rail.length > 0 && (
+        {(secondary || rail.length > 0) && (
           <aside className={styles.rail}>
+            {secondary && <SecondaryCard article={secondary} />}
             {rail.map((a) => (
               <RailCard key={a.slug} article={a} />
             ))}
-            {secondary && <SecondaryCard article={secondary} />}
           </aside>
         )}
       </div>
