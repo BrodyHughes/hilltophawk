@@ -9,7 +9,7 @@
 //
 // This file imports nothing from React or Next, so the browser can use it too.
 
-export const UPDATED = "Nov. 17, 2026";
+export const UPDATED = "Nov. 19, 2026";
 export const VOTE_DATE_LABEL = "Dec. 1";
 /** End of vote day, Central time (midnight Dec. 2 CT). */
 export const EXPIRES_AT = Date.parse("2026-12-02T06:00:00Z");
@@ -47,7 +47,6 @@ export type Senator = {
 export const SENATORS: Senator[] = [
   // --- Backs Schumer ---
   { name: "Chuck Schumer", state: "NY", party: "D", camp: "S", date: "2026-11-04", note: "Incumbent leader since 2017. Says he has “the votes to continue serving as Democratic Leader.” Allies predict 40+.", phone: "(202) 224-6542", contact: "https://www.schumer.senate.gov/contact/email-chuck" },
-  { name: "Tim Kaine", state: "VA", party: "D", camp: "S", date: "2026-06-28", note: "Committed early, back in June.", phone: "(202) 224-4024", contact: "https://www.kaine.senate.gov/contact" },
   { name: "Sheldon Whitehouse", state: "RI", party: "D", camp: "S", date: "2026-11-06", phone: "(202) 224-2921", contact: "https://www.whitehouse.senate.gov/contact/email-sheldon" },
   { name: "Brian Schatz", state: "HI", party: "D", camp: "S", date: "2026-11-09", note: "Running unopposed for whip. Once floated as a Schumer successor himself.", phone: "(202) 224-3934", contact: "https://www.schatz.senate.gov/contact" },
   { name: "John Fetterman", state: "PA", party: "D", camp: "S", date: "2026-11-09", note: "Said Nov. 14 that Van Hollen's stance on Israel could push him to leave the party if Van Hollen wins.", phone: "(202) 224-4254", contact: "https://www.fetterman.senate.gov/contact/" },
@@ -72,9 +71,8 @@ export const SENATORS: Senator[] = [
   { name: "Jeff Merkley", state: "OR", party: "D", camp: "V", sub: "endorse", date: "2026-11-13", note: "Posted his support on Nov. 13.", flag: "Not on The New Republic's Nov. 13 list", phone: "(202) 224-3753", contact: "https://www.merkley.senate.gov/contact/" },
   { name: "Adam Hamilton", state: "KS", party: "D", camp: "V", sub: "anti", date: "2026-11-04", elect: true, note: "Says Schumer is seen as divisive. Met with Schumer post-election." },
   { name: "Juliana Stratton", state: "IL", party: "D", camp: "V", sub: "anti", date: "2026-11-04", elect: true, note: "Pledged during the campaign not to back Schumer." },
-  { name: "Annie Andrews", state: "SC", party: "D", camp: "V", sub: "anti", date: "2026-11-06", elect: true },
   { name: "Troy Jackson", state: "ME", party: "D", camp: "V", sub: "anti", date: "2026-11-09", elect: true, note: "Pledged during the campaign not to back Schumer." },
-  { name: "Elissa Slotkin", state: "MI", party: "D", camp: "V", sub: "anti", date: "2026-11-13", note: "A no until she sees a plan that's “definitely different.” Says she isn't running herself.", phone: "(202) 224-4822", contact: "https://www.slotkin.senate.gov/" },
+  { name: "Elissa Slotkin", state: "MI", party: "D", camp: "V", sub: "endorse", date: "2026-11-19", note: "Endorsed Van Hollen Nov. 19 in a video on X: “I've been clear that I wasn't supporting Schumer, I will be supporting Chris Van Hollen.”", phone: "(202) 224-4822", contact: "https://www.slotkin.senate.gov/" },
 
   // --- Undecided ---
   { name: "Chris Murphy", state: "CT", party: "D", camp: "U", date: "2026-03-22", phone: "(202) 224-4041", contact: "https://www.murphy.senate.gov/contact" },
@@ -87,10 +85,10 @@ export const SENATORS: Senator[] = [
   { name: "James Talarico", state: "TX", party: "D", camp: "U", date: "2026-11-04", elect: true, flag: "New Republic lists him as not backing Schumer" },
   { name: "Maria Cantwell", state: "WA", party: "D", camp: "U", date: "2026-11-04", phone: "(202) 224-3441", contact: "https://www.cantwell.senate.gov/public/index.cfm/email-maria" },
   { name: "Ed Markey", state: "MA", party: "D", camp: "U", date: "2026-11-05", phone: "(202) 224-2742", contact: "https://www.markey.senate.gov/contact" },
-  { name: "Jon Ossoff", state: "GA", party: "D", camp: "U", date: "2026-11-05", phone: "(202) 224-3521", contact: "https://www.ossoff.senate.gov/contact-us/" },
+  { name: "Jon Ossoff", state: "GA", party: "D", camp: "U", date: "2026-11-17", note: "Hasn't committed. Wants to hear each candidate's “vision for the floor and managing the caucus.”", phone: "(202) 224-3521", contact: "https://www.ossoff.senate.gov/contact-us/" },
   { name: "Andy Kim", state: "NJ", party: "D", camp: "U", date: "2026-11-09", phone: "(202) 224-4744", contact: "https://www.kim.senate.gov/" },
   { name: "Chris Coons", state: "DE", party: "D", camp: "U", date: "2026-11-09", phone: "(202) 224-5042", contact: "https://www.coons.senate.gov/contact" },
-  { name: "Josh Turek", state: "IA", party: "D", camp: "U", date: "2026-11-09", elect: true, note: "One of the freshmen Schumer is courting." },
+  { name: "Josh Turek", state: "IA", party: "D", camp: "U", date: "2026-11-16", elect: true, note: "One of the freshmen Schumer is courting." },
   { name: "Martin Heinrich", state: "NM", party: "D", camp: "U", date: "2026-11-09", phone: "(202) 224-5521", contact: "https://www.heinrich.senate.gov/contact" },
   { name: "Alex Padilla", state: "CA", party: "D", camp: "U", date: "2026-11-10", phone: "(202) 224-3553", contact: "https://www.padilla.senate.gov/contact/" },
   { name: "Mark Warner", state: "VA", party: "D", camp: "U", date: "2026-11-10", phone: "(202) 224-2023", contact: "https://www.warner.senate.gov/public/index.cfm?p=Contact" },
@@ -100,12 +98,15 @@ export const SENATORS: Senator[] = [
   { name: "Scott Colom", state: "MS", party: "D", camp: "U", date: "2026-11-12", elect: true, note: "Hasn't committed to Schumer." },
   { name: "John Hickenlooper", state: "CO", party: "D", camp: "U", date: "2026-11-16", note: "Publicly undecided. Credits Schumer for the Senate flips but floated “other teams” around him.", phone: "(202) 224-5941", contact: "https://www.hickenlooper.senate.gov/contact/" },
   { name: "Tammy Duckworth", state: "IL", party: "D", camp: "U", date: "2026-11-16", note: "“I've not announced.”", phone: "(202) 224-2854", contact: "https://www.duckworth.senate.gov/content/contact-senator" },
+  { name: "Maggie Hassan", state: "NH", party: "D", camp: "U", date: "2026-11-16", note: "Publicly uncommitted.", phone: "(202) 224-3324", contact: "https://www.hassan.senate.gov/content/contact-senator" },
+  { name: "Tim Kaine", state: "VA", party: "D", camp: "U", date: "2026-11-17", note: "Backed Schumer back in June. Now defends him (“Chuck delivered an amazing win”) but says he's still open to Van Hollen or someone else.", flag: "The New Republic still lists him with Schumer", phone: "(202) 224-4024", contact: "https://www.kaine.senate.gov/contact" },
+  { name: "Annie Andrews", state: "SC", party: "D", camp: "U", date: "2026-11-17", elect: true, note: "Said during the campaign she wouldn't back Schumer. Now says she's undecided and meeting with both before choosing." },
+  { name: "Mary Peltola", state: "AK", party: "D", camp: "U", date: "2026-11-17", elect: true, note: "Won Alaska Nov. 17, the ninth Democratic pickup. Hasn't said where she stands." },
+  { name: "Michael Bennet", state: "CO", party: "D", camp: "U", date: "2026-11-17", note: "His office says he hasn't committed to either candidate.", phone: "(202) 224-5852", contact: "https://www.bennet.senate.gov/public/index.cfm/contact" },
 
   // --- No public statement ---
   { name: "Adam Schiff", state: "CA", party: "D", camp: "N", phone: "(202) 224-3841", contact: "https://www.schiff.senate.gov" },
-  { name: "Michael Bennet", state: "CO", party: "D", camp: "N", phone: "(202) 224-5852", contact: "https://www.bennet.senate.gov/public/index.cfm/contact" },
   { name: "Lisa Blunt Rochester", state: "DE", party: "D", camp: "N", phone: "(202) 224-2441", contact: "https://www.bluntrochester.senate.gov/" },
-  { name: "Maggie Hassan", state: "NH", party: "D", camp: "N", phone: "(202) 224-3324", contact: "https://www.hassan.senate.gov/content/contact-senator" },
 ];
 
 export const SOURCES = [
@@ -119,6 +120,11 @@ export const SOURCES = [
   { label: "States Newsroom — Schumer “confident” he'll lead (Nov. 10)", href: "https://floridaphoenix.com/2026/11/11/repub/schumer-confident-hell-lead-us-senate-dems-despite-criticism/" },
   { label: "The Hill — Whip List: Schumer vs. Van Hollen (Nov. 17)", href: "https://thehill.com/homenews/senate/6223162-whip-schumer-van-hollen-leadership-race/" },
   { label: "The Hill — Van Hollen's Senate backers lay low (Nov. 17)", href: "https://thehill.com/homenews/senate/6223801-democrats-clash-majority-leader-election/" },
+  { label: "The Hill — Slotkin picks Van Hollen over Schumer (Nov. 19)", href: "https://thehill.com/homenews/senate/6232111-senate-leadership-race-updates/" },
+  { label: "AP — Van Hollen's bid puts pressure on Democrats to take sides (Nov. 17)", href: "https://www.adn.com/nation-world/2026/11/17/van-hollens-bid-to-replace-schumer-as-leader-is-putting-pressure-on-democrats-to-take-sides/" },
+  { label: "SC Daily Gazette — Andrews is undecided on her vote (Nov. 17)", href: "https://scdailygazette.com/2026/11/17/after-calling-for-a-new-generation-of-leadership-sc-sen-elect-andrews-is-undecided-on-her-vote/" },
+  { label: "NBC News — Peltola flips Alaska Senate seat (Nov. 17)", href: "https://www.nbcnews.com/politics/2026-election/mary-peltola-democrat-wins-alaska-senate-dan-sullivan-gop-rcna603307" },
+  { label: "Washington Post — The Senate Democrats backing Schumer and Van Hollen (Nov. 18)", href: "https://www.washingtonpost.com/politics/interactive/2026/11/18/these-are-senate-democrats-backing-schumer-van-hollen-majority-leader/" },
   { label: "U.S. Senate — Senator contact information", href: "https://www.senate.gov/senators/senators-contact.htm" },
 ];
 
