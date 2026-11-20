@@ -22,6 +22,8 @@ type Props = {
   text?: string;
   /** Offer the post style choices (Classic, Big Picture, ...). Article images only. */
   styleChoices?: boolean;
+  /** Article revision. Added to the image links so the CDN never serves a copy from before the last publish. */
+  version?: string;
 };
 type Format = "feed" | "story";
 
@@ -39,7 +41,7 @@ const FORMATS: { id: Format; label: string }[] = [
  * because phones only allow the share sheet right after a tap; waiting on a
  * download first can make it refuse to open.
  */
-export function ShareButton({ slug, title, path, text, styleChoices = true }: Props) {
+export function ShareButton({ slug, title, path, text, styleChoices = true, version }: Props) {
   const [open, setOpen] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
   const [format, setFormat] = useState<Format>("feed");
@@ -67,7 +69,10 @@ export function ShareButton({ slug, title, path, text, styleChoices = true }: Pr
     let file = files.current.get(key);
     if (!file) {
       const [f, s] = key.split("-");
-      const query = styleChoices && f === "feed" && s !== DEFAULT_POST_STYLE ? `?style=${s}` : "";
+      const params = new URLSearchParams();
+      if (styleChoices && f === "feed" && s !== DEFAULT_POST_STYLE) params.set("style", s);
+      if (version) params.set("v", version);
+      const query = params.size ? `?${params}` : "";
       file = fetch(`${pagePath}/share/${f}${query}`)
         .then((res) => {
           if (!res.ok) throw new Error(String(res.status));

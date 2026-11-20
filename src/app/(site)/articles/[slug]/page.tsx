@@ -65,7 +65,7 @@ async function ArticleContent({ params }: Pick<PageProps<"/articles/[slug]">, "p
         <div className={styles.byline}>
           By {article.author} &middot; <time dateTime={article.date}>{date}</time>
         </div>
-        <ShareButton slug={article.slug} title={article.title} />
+        <ShareButton slug={article.slug} title={article.title} version={article.version} />
       </header>
 
       <div className={`frame ${styles.hero}`}>

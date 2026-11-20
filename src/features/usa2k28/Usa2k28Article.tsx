@@ -65,7 +65,7 @@ export function Usa2k28Article({ article }: { article: ArticleWithBody }) {
             By {AUTHORS} · <time dateTime={article.date}>{date}</time>
           </div>
           <div className={styles.share}>
-            <ShareButton slug={article.slug} title={article.title} />
+            <ShareButton slug={article.slug} title={article.title} version={article.version} />
           </div>
         </div>
       </header>

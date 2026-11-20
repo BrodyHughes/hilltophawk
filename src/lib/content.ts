@@ -42,6 +42,8 @@ export type Article = {
   layout: string;
   /** Show the whole cover on cards (maps, charts) instead of cropping it. */
   wholeImage: boolean;
+  /** Changes on every publish; added to share image links so edits show up right away. */
+  version?: string;
 };
 
 export type Picture = {
@@ -91,7 +93,8 @@ const ARTICLE_FIELDS = /* groq */ `
   wideImage,
   squareImage,
   "layout": coalesce(layout, "standard"),
-  "wholeImage": coalesce(showWholeImage, false)
+  "wholeImage": coalesce(showWholeImage, false),
+  "version": _rev
 `;
 
 const ARTICLES_QUERY = defineQuery(`
