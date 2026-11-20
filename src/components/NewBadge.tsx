@@ -25,8 +25,8 @@ export function NewBadge({ date, size = "sm" }: { date: string; size?: "sm" | "l
   if (!isNew) return null;
   return (
     <span className={`${styles.newBadge} ${size === "lg" ? styles.newBadgeLg : ""}`} data-new>
-      <i aria-hidden="true" />
       New
+      <i aria-hidden="true">*</i>
     </span>
   );
 }

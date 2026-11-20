@@ -156,7 +156,7 @@
   z-index: 2;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 0;
   padding: 4px 7px;
   border-radius: 4px;
   background: var(--gold);
@@ -171,16 +171,15 @@
   pointer-events: none;
 }
 .newBadge i {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--ink);
-  animation: newPulse 1.6s ease-in-out infinite;
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 900;
+  font-size: 1.5em;
+  line-height: 0;
+  margin-left: -.06em;
+  transform: translateY(.1em);
 }
-.newBadgeLg { top: 14px; left: 14px; padding: 7px 11px; font-size: 12.5px; gap: 7px; }
-.newBadgeLg i { width: 8px; height: 8px; }
-@keyframes newPulse { 50% { opacity: .25; } }
-@media (prefers-reduced-motion: reduce) { .newBadge i { animation: none; } }
+.newBadgeLg { top: 14px; left: 14px; padding: 7px 11px; font-size: 12.5px; }
 
 .lead:not(.leadWhole):has([data-new]) .leadImage,
 :global(:root) .leadWhole:has([data-new]),
