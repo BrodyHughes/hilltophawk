@@ -124,6 +124,7 @@ export const SOURCES = [
   { label: "AP — Van Hollen's bid puts pressure on Democrats to take sides (Nov. 17)", href: "https://www.adn.com/nation-world/2026/11/17/van-hollens-bid-to-replace-schumer-as-leader-is-putting-pressure-on-democrats-to-take-sides/" },
   { label: "SC Daily Gazette — Andrews is undecided on her vote (Nov. 17)", href: "https://scdailygazette.com/2026/11/17/after-calling-for-a-new-generation-of-leadership-sc-sen-elect-andrews-is-undecided-on-her-vote/" },
   { label: "NBC News — Peltola flips Alaska Senate seat (Nov. 17)", href: "https://www.nbcnews.com/politics/2026-election/mary-peltola-democrat-wins-alaska-senate-dan-sullivan-gop-rcna603307" },
+  { label: "TIME — Van Hollen puts AI at center of his challenge (Nov. 19)", href: "https://time.com/article/2026/11/19/chris-van-hollen-ai-schumer-challenge-senate-democratic-leader/" },
   { label: "Washington Post — The Senate Democrats backing Schumer and Van Hollen (Nov. 18)", href: "https://www.washingtonpost.com/politics/interactive/2026/11/18/these-are-senate-democrats-backing-schumer-van-hollen-majority-leader/" },
   { label: "U.S. Senate — Senator contact information", href: "https://www.senate.gov/senators/senators-contact.htm" },
 ];

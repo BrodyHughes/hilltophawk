@@ -57,11 +57,11 @@ export default function WhipCountPage() {
         </div>
         <div className={styles.callout}>
           <b>The wildcard</b>
-          <p>Van Hollen says he has &ldquo;more than 10&rdquo; senators privately. It&rsquo;s a secret ballot, so public pledges can&rsquo;t be checked against actual votes.</p>
+          <p>Van Hollen says about 15 colleagues back him, though most haven&rsquo;t said so publicly. It&rsquo;s a secret ballot, so public pledges can&rsquo;t be checked against actual votes.</p>
         </div>
         <div className={styles.callout}>
           <b>The freshmen</b>
-          <p>Most of the incoming class has either refused to back Schumer or held off committing. Schumer is meeting with them one-on-one.</p>
+          <p>Of the 13 incoming senators, only Sherrod Brown has publicly backed Schumer. The rest have refused to back him or are holding off, and Schumer is meeting with them one-on-one.</p>
         </div>
       </div>
 
