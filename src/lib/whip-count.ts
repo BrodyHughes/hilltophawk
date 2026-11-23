@@ -9,7 +9,7 @@
 //
 // This file imports nothing from React or Next, so the browser can use it too.
 
-export const UPDATED = "Nov. 19, 2026";
+export const UPDATED = "Nov. 23, 2026";
 export const VOTE_DATE_LABEL = "Dec. 1";
 /** End of vote day, Central time (midnight Dec. 2 CT). */
 export const EXPIRES_AT = Date.parse("2026-12-02T06:00:00Z");
@@ -64,10 +64,10 @@ export const SENATORS: Senator[] = [
   { name: "Mazie Hirono", state: "HI", party: "D", camp: "S", date: "2026-11-16", note: "Cited her “long history” with Schumer.", phone: "(202) 224-6361", contact: "https://www.hirono.senate.gov/contact" },
 
   // --- Van Hollen camp ---
-  { name: "Chris Van Hollen", state: "MD", party: "D", camp: "V", sub: "endorse", date: "2026-11-12", note: "The challenger. Announced Nov. 12 that “we need new leadership.” Claimed “about 15 and growing” on Nov. 15 but hasn't named them.", phone: "(202) 224-4654", contact: "https://www.vanhollen.senate.gov/contact/email" },
+  { name: "Chris Van Hollen", state: "MD", party: "D", camp: "V", sub: "endorse", date: "2026-11-12", note: "The challenger. Announced Nov. 12 that “we need new leadership.” Told Meet the Press Nov. 22 his support is “north of 15” and “momentum is in our direction,” but hasn't named them.", phone: "(202) 224-4654", contact: "https://www.vanhollen.senate.gov/contact/email" },
   { name: "Bernie Sanders", state: "VT", party: "I", camp: "V", sub: "endorse", date: "2026-11-12", note: "Firmly against Schumer; backs Van Hollen.", phone: "(202) 224-5141", contact: "https://www.sanders.senate.gov/contact/" },
   { name: "Abdul El-Sayed", state: "MI", party: "D", camp: "V", sub: "endorse", date: "2026-11-12", elect: true, note: "Campaigned on making Van Hollen majority leader." },
-  { name: "Peggy Flanagan", state: "MN", party: "D", camp: "V", sub: "endorse", date: "2026-11-13", elect: true, note: "Said Democrats need a progressive champion and Schumer isn't it.", flag: "Earlier AP report (Nov. 10) called her uncommitted" },
+  { name: "Peggy Flanagan", state: "MN", party: "D", camp: "V", sub: "endorse", date: "2026-11-13", elect: true, note: "Said Democrats need a progressive champion and Schumer isn't it. Told CNN Nov. 22 that Van Hollen leads “like an organizer.”" },
   { name: "Jeff Merkley", state: "OR", party: "D", camp: "V", sub: "endorse", date: "2026-11-13", note: "Posted his support on Nov. 13.", flag: "Not on The New Republic's Nov. 13 list", phone: "(202) 224-3753", contact: "https://www.merkley.senate.gov/contact/" },
   { name: "Adam Hamilton", state: "KS", party: "D", camp: "V", sub: "anti", date: "2026-11-04", elect: true, note: "Says Schumer is seen as divisive. Met with Schumer post-election." },
   { name: "Juliana Stratton", state: "IL", party: "D", camp: "V", sub: "anti", date: "2026-11-04", elect: true, note: "Pledged during the campaign not to back Schumer." },
@@ -93,7 +93,7 @@ export const SENATORS: Senator[] = [
   { name: "Alex Padilla", state: "CA", party: "D", camp: "U", date: "2026-11-10", phone: "(202) 224-3553", contact: "https://www.padilla.senate.gov/contact/" },
   { name: "Mark Warner", state: "VA", party: "D", camp: "U", date: "2026-11-10", phone: "(202) 224-2023", contact: "https://www.warner.senate.gov/public/index.cfm?p=Contact" },
   { name: "Raphael Warnock", state: "GA", party: "D", camp: "U", date: "2026-11-10", phone: "(202) 224-3643", contact: "https://www.warnock.senate.gov/contact/" },
-  { name: "Peter Welch", state: "VT", party: "D", camp: "U", date: "2026-11-11", note: "Called the leadership debate a distraction back in 2025.", phone: "(202) 224-4242", contact: "https://www.welch.senate.gov/email-peter/" },
+  { name: "Peter Welch", state: "VT", party: "D", camp: "U", date: "2026-11-17", note: "Once seen as a lock for Schumer. Now says he's undecided.", phone: "(202) 224-4242", contact: "https://www.welch.senate.gov/email-peter/" },
   { name: "Patty Murray", state: "WA", party: "D", camp: "U", date: "2026-11-12", note: "Hasn't said. Schumer allies tell The Hill they expect her vote.", phone: "(202) 224-2621", contact: "https://www.murray.senate.gov/write-to-patty/" },
   { name: "Scott Colom", state: "MS", party: "D", camp: "U", date: "2026-11-12", elect: true, note: "Hasn't committed to Schumer." },
   { name: "John Hickenlooper", state: "CO", party: "D", camp: "U", date: "2026-11-16", note: "Publicly undecided. Credits Schumer for the Senate flips but floated “other teams” around him.", phone: "(202) 224-5941", contact: "https://www.hickenlooper.senate.gov/contact/" },
@@ -126,6 +126,9 @@ export const SOURCES = [
   { label: "NBC News — Peltola flips Alaska Senate seat (Nov. 17)", href: "https://www.nbcnews.com/politics/2026-election/mary-peltola-democrat-wins-alaska-senate-dan-sullivan-gop-rcna603307" },
   { label: "TIME — Van Hollen puts AI at center of his challenge (Nov. 19)", href: "https://time.com/article/2026/11/19/chris-van-hollen-ai-schumer-challenge-senate-democratic-leader/" },
   { label: "Washington Post — The Senate Democrats backing Schumer and Van Hollen (Nov. 18)", href: "https://www.washingtonpost.com/politics/interactive/2026/11/18/these-are-senate-democrats-backing-schumer-van-hollen-majority-leader/" },
+  { label: "NBC News — Van Hollen says \u2018momentum is in our direction\u2019 (Nov. 22)", href: "https://www.nbcnews.com/politics/congress/van-hollen-momentum-senate-majority-leader-schumer-election-rcna610669" },
+  { label: "The Hill — Flanagan says Van Hollen leads \u2018like an organizer\u2019 (Nov. 22)", href: "https://thehill.com/homenews/senate/6235792-peggy-flanagan-van-hollen" },
+  { label: "Common Dreams — Welch now undecided (Nov. 17)", href: "https://www.commondreams.org/news/welch-schumer-van-hollen" },
   { label: "U.S. Senate — Senator contact information", href: "https://www.senate.gov/senators/senators-contact.htm" },
 ];
 
